@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Câmera Jovi</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/camera.css" />
+  <link rel="stylesheet" href="css/modo_estudante.css" />
+</head>
+<body>
+  <main class="container-celular">
+    <section class="tela-celular">
+ <!-- Cabeçalho: Status e Controles -->
+      <header class="cabecalho-app">
+        <div class="barra-status">
+          <time class="hora-status" id="hora-status"></time>
+          <div class="icones-status">
+            <svg class="icone-status" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" />
+            </svg>
+            <svg class="icone-status" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z" />
+            </svg>
+          </div>
+        </div>
+  
+        <nav class="barra-topo" aria-label="Controles da câmera">
+          <button class="btn-icone" id="btn-lanterna">
+            <svg id="icone-lanterna-ligada" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+            </svg>
+            <svg id="icone-lanterna-desligada" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="display:none">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11.412 15.655 9.75 21.75l3.745-4.012M9.257 13.5H3.75l2.659-2.849m2.048-2.194L14.25 2.25 12 10.5h8.25l-4.707 5.043M8.457 8.457 3 3m5.457 5.457 7.086 7.086m0 0L21 21" />
+            </svg>
+          </button>
+  
+          <button class="btn-icone" id="btn-configuracoes">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
+          </button>
+  
+          <div class="menu-configuracoes" id="menu-configuracoes">
+            <div class="linha-config">
+              <span class="rotulo-config">RESOLUÇÃO</span>
+              <div class="opcoes-config">
+                <button class="opcao-config active" data-group="res" data-val="HD">HD</button>
+                <button class="opcao-config" data-group="res" data-val="4K">4K</button>
+              </div>
+            </div>
+            <div class="divisor-config"></div>
+            <div class="linha-config">
+              <span class="rotulo-config">FPS</span>
+              <div class="opcoes-config">
+                <button class="opcao-config active" data-group="fps" data-val="24">24</button>
+                <button class="opcao-config" data-group="fps" data-val="30">30</button>
+                <button class="opcao-config" data-group="fps" data-val="60">60</button>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <!-- Área do Visor da Câmera -->
+      <section class="visor-camera" id="visor-camera">
+        <video class="camera-video" id="camera-video" autoplay playsinline muted></video>
+        <canvas class="camera-canvas" id="camera-canvas" aria-hidden="true"></canvas>
+        <div class="camera-estado" id="camera-estado">Permita o acesso à câmera para usar a Jovi.</div>
+
+        <div class="sobreposicao-grade">
+          <div class="linha-grade grade-v" style="left:33.33%"></div>
+          <div class="linha-grade grade-v" style="left:66.66%"></div>
+          <div class="linha-grade grade-h" style="top:33.33%"></div>
+          <div class="linha-grade grade-h" style="top:66.66%"></div>
+        </div>
+
+        <div class="quadro-detecao" id="quadro-detecao">
+          <div class="canto canto-se"></div>
+          <div class="canto canto-sd"></div>
+          <div class="canto canto-ie"></div>
+          <div class="canto canto-id"></div>
+          <div class="linha-scan"></div>
+        </div>
+
+        <div class="seletor-zoom" id="seletor-zoom">
+          <button class="btn-zoom" data-zoom="0.5">0.5</button>
+          <button class="btn-zoom zoom-ativo" data-zoom="1">1<span class="zoom-x">x</span></button>
+          <button class="btn-zoom" data-zoom="2">2</button>
+          <button class="btn-zoom" data-zoom="5">5</button>
+        </div>
+
+        <div class="estudante-badge-visor" id="estudante-badge-visor">● Modo estudante</div>
+        
+        <!-- Popup para o modo PRO -->
+        <div class="popup-pro" id="popup-pro">
+          <div class="popup-pro-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="popup-pro-textos">
+            <strong>CHAVE PIX IDENTIFICADA</strong>
+            <span>joao.silva@gmail.com</span>
+          </div>
+          <button class="popup-pro-botao">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M9 18l6-6-6-6"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Menu de ações do estudante -->
+        <div class="estudante-cards" id="estudante-cards">
+          <button class="card-estudante" data-acao="scan" onclick="location.href='pages/scan.html'">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/>
+              <rect x="7" y="7" width="10" height="10" rx="1"/>
+            </svg>
+            <span>Scan</span>
+          </button>
+          <button class="card-estudante" data-acao="flashcard" onclick="location.href='pages/flashcard.html'">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+            </svg>
+            <span>Flashcard</span>
+          </button>
+          <button class="card-estudante" data-acao="math" onclick="location.href='pages/equacao.html'">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <line x1="4" y1="12" x2="20" y2="12"/>
+              <line x1="12" y1="4" x2="12" y2="20"/>
+              <line x1="4" y1="6" x2="9" y2="6"/>
+              <line x1="4" y1="18" x2="9" y2="18"/>
+            </svg>
+            <span>Math</span>
+          </button>
+          <button class="card-estudante" data-acao="salvar" onclick="location.href='pages/salvar.html'">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span>Salvar</span>
+          </button>
+        </div>
+
+        <button class="btn-voltar-scan" id="btn-voltar-scan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6" />
+          </svg>
+          Voltar
+        </button>
+      </section>
+
+      <!-- Barra Inferior: Galeria e Captura -->
+      <section class="barra-inferior">
+        <button class="miniatura-preview" id="miniatura-preview">
+          <div class="miniatura-interna">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <polyline points="3 9 9 9 9 3" />
+            </svg>
+          </div>
+        </button>
+
+        <button class="btn-captura" id="btn-captura">
+          <span class="captura-interna"></span>
+        </button>
+
+        <div class="controles-direita">
+          <button class="btn-girar-camera" id="btn-girar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 4v6h6" />
+              <path d="M23 20v-6h-6" />
+              <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Seletor de Modos -->
+      <footer class="barra-modos">
+        <div class="segmento-modos" id="segmento-modos">
+          <button class="botao-modo" data-mode="retrato">Retrato</button>
+          <button class="botao-modo" data-mode="video">Vídeo</button>
+          <button class="botao-modo active" id="mode-foto" data-mode="foto">Foto</button>
+          <button class="botao-modo" id="mode-estudante" data-mode="estudante">Estudante</button>
+          <button class="botao-modo" data-mode="pro">Pro</button>
+        </div>
+      </footer>
+
+    <!-- Galeria-->
+    <section class="tela-galeria" id="tela-galeria">
+      <header class="header-galeria">
+        <button class="btn-fechar-galeria" id="btn-fechar-galeria">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+        <span class="titulo-galeria">Minhas Capturas</span>
+      </header>
+
+      <div class="galeria-slider">
+        <div class="galeria-wrapper" id="galeria-wrapper">
+          <!-- Slides -->
+        </div>
+        
+        <button class="galeria-nav prev" id="galeria-prev">❮</button>
+        <button class="galeria-nav next" id="galeria-next">❯</button>
+      </div>
+
+      <div class="galeria-indicadores" id="galeria-indicadores"></div>
+    </section>
+
+  </section>
+</main>
+
+  <template id="template-alerta">
+    <div class="alerta-jovi">
+      <span class="alerta-icone">●</span>
+      <div class="alerta-texto">
+        <strong class="alerta-titulo"></strong>
+        <span class="alerta-msg"></span>
+      </div>
+      <button class="alerta-fechar">✕</button>
+    </div>
+  </template>
+
+  <template id="template-miniatura">
+    <div class="miniatura-contador"></div>
+  </template>
+
+  <script src="js/script.js"></script>
+  <script src="js/integration.js"></script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+/* ── FLASHCARD ── */
+.flashcard-subtitulo-deck {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--branco);
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.flashcard-contador {
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* Container dos cards */
+#container-flashcards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card-flashcard {
+  background: #242424;
+  border: 1px solid #333;
+  border-radius: 14px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  gap: 10px;
+  position: relative;
+  perspective: 900px;
+  overflow: hidden;
+}
+
+.card-flashcard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-flashcard-titulo {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cor-principal);
+}
+
+.btn-flashcard-girar {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.4s ease, color 0.2s;
+}
+
+.card-flashcard.virado .btn-flashcard-girar {
+  color: var(--cor-principal);
+  transform: rotate(180deg);
+}
+
+.btn-flashcard-girar svg {
+  width: 17px;
+  height: 17px;
+}
+
+.card-flashcard-frente,
+.card-flashcard-verso {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 100%;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  overflow: hidden;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s ease, max-height 0.45s ease;
+}
+
+.card-flashcard-frente {
+  max-height: 900px;
+  transform: rotateY(0deg);
+}
+
+.card-flashcard-verso {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: rotateY(180deg);
+}
+
+.card-flashcard.virado .card-flashcard-frente {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: rotateY(-180deg);
+}
+
+.card-flashcard.virado .card-flashcard-verso {
+  max-height: 900px;
+  opacity: 1;
+  pointer-events: auto;
+  transform: rotateY(0deg);
+}
+
+.card-flashcard-pergunta {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  color: #ccc;
+  line-height: 1.45;
+}
+
+.card-flashcard-pergunta::before {
+  content: '•';
+  color: var(--cor-principal);
+  flex-shrink: 0;
+  font-size: 16px;
+  line-height: 1.1;
+}
+
+/* Verso (Respostas) */
+.resposta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: #bbb;
+  line-height: 1.45;
+}
+
+.resposta-item strong {
+  color: var(--branco);
+  font-weight: 600;
+}
+
+.resposta-lista {
+  margin: 0;
+  padding-left: 20px;
+  list-style-type: disc;
+  color: #aaa;
+}
+
+.resposta-lista li {
+  margin-bottom: 3px;
+}
+
+.resposta-lista-numerada {
+  margin: 0;
+  padding-left: 20px;
+  list-style-type: decimal;
+  color: #aaa;
+}
+
+.resposta-lista-numerada li {
+  margin-bottom: 3px;
+}
