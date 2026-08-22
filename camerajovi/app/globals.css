@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
 :root {
   --amarelo: #ffc107;
   --branco: #ffffff;
@@ -24,7 +26,7 @@ body {
   justify-content: center;
   overflow: hidden;
   background: #111111;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 button {
@@ -78,6 +80,7 @@ button {
 }
 
 .barra-topo {
+  position: relative;
   justify-content: space-between;
   padding: 8px 20px 10px;
 }
@@ -98,6 +101,66 @@ button {
   width: 22px;
   height: 22px;
   color: #2c2c2c;
+}
+
+.btn-icone.ativo {
+  background: var(--amarelo);
+}
+
+.menu-configuracoes {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 16px;
+  z-index: 10;
+  min-width: 190px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: rgba(248, 250, 252, 0.96);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.linha-configuracao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.linha-configuracao > span {
+  min-width: 64px;
+  color: #64748b;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.opcoes-configuracao {
+  display: flex;
+  gap: 4px;
+}
+
+.opcoes-configuracao button {
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #64748b;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.opcoes-configuracao button.ativo {
+  background: var(--amarelo);
+  color: #222222;
+  font-weight: 700;
+}
+
+.divisor-configuracao {
+  height: 1px;
+  margin: 4px 0;
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .visor-camera {
@@ -146,16 +209,43 @@ button {
   height: 1px;
 }
 
-.grade-v.grade-um { left: 33.33%; }
-.grade-v.grade-dois { left: 66.66%; }
-.grade-h.grade-um { top: 33.33%; }
-.grade-h.grade-dois { top: 66.66%; }
+.grade-v.grade-um {
+  left: 33.33%;
+}
+.grade-v.grade-dois {
+  left: 66.66%;
+}
+.grade-h.grade-um {
+  top: 33.33%;
+}
+.grade-h.grade-dois {
+  top: 66.66%;
+}
 
 .quadro-deteccao {
   position: absolute;
   width: 110px;
   height: 110px;
   z-index: 2;
+  transition:
+    width 0.25s,
+    height 0.25s;
+}
+
+.modo-badge {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  z-index: 3;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--amarelo);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  transform: translateX(-50%);
 }
 
 .canto {
@@ -166,10 +256,26 @@ button {
   border-style: solid;
 }
 
-.canto-superior-esquerdo { top: 0; left: 0; border-width: 3px 0 0 3px; }
-.canto-superior-direito { top: 0; right: 0; border-width: 3px 3px 0 0; }
-.canto-inferior-esquerdo { bottom: 0; left: 0; border-width: 0 0 3px 3px; }
-.canto-inferior-direito { right: 0; bottom: 0; border-width: 0 3px 3px 0; }
+.canto-superior-esquerdo {
+  top: 0;
+  left: 0;
+  border-width: 3px 0 0 3px;
+}
+.canto-superior-direito {
+  top: 0;
+  right: 0;
+  border-width: 3px 3px 0 0;
+}
+.canto-inferior-esquerdo {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 3px 3px;
+}
+.canto-inferior-direito {
+  right: 0;
+  bottom: 0;
+  border-width: 0 3px 3px 0;
+}
 
 .seletor-zoom {
   position: absolute;
@@ -220,7 +326,10 @@ button {
   color: var(--branco);
 }
 
-.miniatura-preview svg { width: 26px; height: 26px; }
+.miniatura-preview svg {
+  width: 26px;
+  height: 26px;
+}
 
 .btn-captura {
   width: 72px;
@@ -241,6 +350,10 @@ button {
   background: var(--branco);
 }
 
+.captura-interna.modo-video {
+  background: #ff3b30;
+}
+
 .btn-girar-camera {
   border: 0;
   border-radius: 50%;
@@ -248,17 +361,27 @@ button {
   color: rgba(255, 255, 255, 0.8);
 }
 
-.btn-girar-camera svg { width: 22px; height: 22px; }
+.btn-girar-camera svg {
+  width: 22px;
+  height: 22px;
+}
 
 .barra-modos {
   gap: 10px;
   justify-content: flex-start;
   overflow-x: auto;
-  padding: 10px 32px 20px;
+  padding: 10px calc(50% - 45px) 20px;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
 
+.barra-modos::-webkit-scrollbar {
+  display: none;
+}
+
 .botao-modo {
+  flex-shrink: 0;
   min-width: 90px;
   padding: 6px 15px;
   border: 0;
@@ -268,6 +391,7 @@ button {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  scroll-snap-align: center;
   cursor: pointer;
 }
 
@@ -284,7 +408,9 @@ button {
 
   .tela-celular {
     border-radius: 48px;
-    box-shadow: 0 0 0 10px #2a2a2a, 0 0 0 12px #444,
+    box-shadow:
+      0 0 0 10px #2a2a2a,
+      0 0 0 12px #444,
       0 30px 80px rgba(0, 0, 0, 0.8);
   }
 }
