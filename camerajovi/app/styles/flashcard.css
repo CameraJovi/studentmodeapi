@@ -1,0 +1,132 @@
+.flashcard-subtitulo-deck {
+  color: var(--branco);
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.flashcard-contador {
+  margin-bottom: 12px;
+  color: #888888;
+  font-size: 12px;
+  text-align: center;
+}
+
+.container-flashcards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card-flashcard {
+  padding: 18px;
+  border: 1px solid #333333;
+  border-radius: 14px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  gap: 10px;
+  overflow: hidden;
+  background: #242424;
+  perspective: 900px;
+}
+
+.card-flashcard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-flashcard-titulo {
+  color: var(--amarelo);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.btn-flashcard-girar {
+  padding: 4px;
+  border: 0;
+  display: flex;
+  background: none;
+  color: #666666;
+  cursor: pointer;
+  transition: transform 0.4s, color 0.2s;
+}
+
+.btn-flashcard-girar svg {
+  width: 17px;
+  height: 17px;
+}
+
+.card-flashcard.virado .btn-flashcard-girar {
+  color: var(--amarelo);
+  transform: rotate(180deg);
+}
+
+.card-flashcard-frente,
+.card-flashcard-verso {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+  transition: transform 0.45s, opacity 0.2s, max-height 0.45s;
+}
+
+.card-flashcard-frente {
+  max-height: 900px;
+}
+
+.card-flashcard-verso {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: rotateY(180deg);
+}
+
+.card-flashcard.virado .card-flashcard-frente {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: rotateY(-180deg);
+}
+
+.card-flashcard.virado .card-flashcard-verso {
+  max-height: 900px;
+  opacity: 1;
+  pointer-events: auto;
+  transform: rotateY(0);
+}
+
+.card-flashcard-pergunta {
+  display: flex;
+  gap: 8px;
+  color: #cccccc;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.card-flashcard-pergunta::before {
+  content: "•";
+  color: var(--amarelo);
+}
+
+.resposta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #bbbbbb;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.resposta-item strong {
+  color: var(--branco);
+}
+
+.resposta-lista,
+.resposta-lista-numerada {
+  padding-left: 20px;
+  color: #aaaaaa;
+}

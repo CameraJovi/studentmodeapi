@@ -1,0 +1,131 @@
+.slide-equacao {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.equacao-preview-quadro {
+  position: relative;
+  padding: 28px 22px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow: hidden;
+  background: #2c2c2c;
+}
+
+.equacao-preview-quadro::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background: var(--amarelo);
+}
+
+.img-preview-math {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.equacao-linha-fake {
+  width: 60%;
+  height: 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.equacao-linha-fake.equacao {
+  width: 70%;
+  height: 7px;
+  background: rgba(255, 193, 7, 0.22);
+}
+
+.equacao-linha-fake.linha-grande {
+  width: 85%;
+}
+
+.equacao-linha-fake.linha-media {
+  width: 60%;
+}
+
+.equacao-resolucao {
+  padding: 20px 18px;
+  border: 1px solid #333333;
+  border-radius: 16px;
+  background: #242424;
+}
+
+.resolucao-titulo {
+  margin-bottom: 12px;
+  color: var(--branco);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.resolucao-sistema {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.resolucao-eq,
+.resolucao-passo-texto {
+  color: var(--amarelo);
+  font-family: Georgia, serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.resolucao-dica {
+  margin-bottom: 16px;
+  color: #888888;
+  font-size: 12px;
+}
+
+.resolucao-passo {
+  padding: 13px 0;
+  border-top: 1px solid #2e2e2e;
+}
+
+.resolucao-passo-texto {
+  color: #cccccc;
+}
+
+.resolucao-passo-texto.destaque {
+  color: var(--amarelo);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.controles-slideshow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 36px;
+}
+
+.btn-slideshow {
+  padding: 8px 14px;
+  border: 1px solid #3d3d3d;
+  border-radius: 99px;
+  background: #2a2a2a;
+  color: var(--branco);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-slideshow.proximo {
+  margin-left: auto;
+}
+
+.contador-math {
+  color: #888888;
+  font-size: 13px;
+  font-weight: 600;
+}

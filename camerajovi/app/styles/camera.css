@@ -1,0 +1,146 @@
+.visor-camera {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #000000;
+}
+
+.camera-estado {
+  z-index: 3;
+  max-width: 72%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.58);
+  color: var(--branco);
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.sobreposicao-grade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.linha-grade {
+  position: absolute;
+  background: rgba(255, 193, 7, 0.25);
+}
+
+.grade-v {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.grade-h {
+  right: 0;
+  left: 0;
+  height: 1px;
+}
+
+.grade-v.grade-um {
+  left: 33.33%;
+}
+
+.grade-v.grade-dois {
+  left: 66.66%;
+}
+
+.grade-h.grade-um {
+  top: 33.33%;
+}
+
+.grade-h.grade-dois {
+  top: 66.66%;
+}
+
+.quadro-deteccao {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  z-index: 2;
+  transition:
+    width 0.25s,
+    height 0.25s;
+}
+
+.modo-badge {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  z-index: 3;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--amarelo);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.canto {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-color: var(--amarelo);
+  border-style: solid;
+}
+
+.canto-superior-esquerdo {
+  top: 0;
+  left: 0;
+  border-width: 3px 0 0 3px;
+}
+
+.canto-superior-direito {
+  top: 0;
+  right: 0;
+  border-width: 3px 3px 0 0;
+}
+
+.canto-inferior-esquerdo {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 3px 3px;
+}
+
+.canto-inferior-direito {
+  right: 0;
+  bottom: 0;
+  border-width: 0 3px 3px 0;
+}
+
+.seletor-zoom {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+  transform: translateX(-50%);
+}
+
+.btn-zoom {
+  padding: 4px 10px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+
+.btn-zoom.zoom-ativo {
+  background: var(--amarelo);
+  color: var(--branco);
+  font-weight: 700;
+}

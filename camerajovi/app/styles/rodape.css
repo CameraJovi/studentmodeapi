@@ -1,0 +1,111 @@
+.rodape-camera {
+  flex-shrink: 0;
+  background: var(--fundo-controles);
+}
+
+.barra-inferior,
+.barra-modos {
+  display: flex;
+  align-items: center;
+}
+
+.barra-inferior {
+  justify-content: space-between;
+  padding: 16px 28px 10px;
+}
+
+.miniatura-preview,
+.btn-girar-camera {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.miniatura-preview {
+  border: 2px solid var(--amarelo);
+  border-radius: 10px;
+  background: var(--amarelo);
+  color: var(--branco);
+}
+
+.miniatura-preview.oculto {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.miniatura-preview svg {
+  width: 26px;
+  height: 26px;
+}
+
+.btn-captura {
+  width: 72px;
+  height: 72px;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  cursor: pointer;
+}
+
+.captura-interna {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--branco);
+}
+
+.captura-interna.modo-video {
+  background: #ff3b30;
+}
+
+.btn-girar-camera {
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.btn-girar-camera svg {
+  width: 22px;
+  height: 22px;
+}
+
+.barra-modos {
+  gap: 10px;
+  justify-content: flex-start;
+  overflow-x: auto;
+  padding: 10px calc(50% - 45px) 20px;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.barra-modos::-webkit-scrollbar {
+  display: none;
+}
+
+.botao-modo {
+  flex-shrink: 0;
+  min-width: 90px;
+  padding: 6px 15px;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  scroll-snap-align: center;
+  cursor: pointer;
+}
+
+.botao-modo.ativo {
+  color: var(--amarelo);
+  font-weight: 800;
+}
