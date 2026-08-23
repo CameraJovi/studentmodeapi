@@ -1,0 +1,112 @@
+.cabecalho-app {
+  flex-shrink: 0;
+  background: var(--fundo-controles);
+}
+
+.barra-status,
+.barra-topo {
+  display: flex;
+  align-items: center;
+}
+
+.barra-status {
+  justify-content: space-between;
+  padding: 14px 28px 4px;
+  color: var(--branco);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.icones-status {
+  display: flex;
+  gap: 6px;
+}
+
+.icones-status svg {
+  width: 16px;
+  height: 16px;
+}
+
+.barra-topo {
+  position: relative;
+  justify-content: space-between;
+  padding: 8px 20px 10px;
+}
+
+.btn-icone {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+}
+
+.btn-icone svg {
+  width: 22px;
+  height: 22px;
+  color: #2c2c2c;
+}
+
+.btn-icone.ativo {
+  background: var(--amarelo);
+}
+
+.menu-configuracoes {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 16px;
+  z-index: 10;
+  min-width: 190px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: rgba(248, 250, 252, 0.96);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.linha-configuracao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.linha-configuracao > span {
+  min-width: 64px;
+  color: #64748b;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.opcoes-configuracao {
+  display: flex;
+  gap: 4px;
+}
+
+.opcoes-configuracao button {
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #64748b;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.opcoes-configuracao button.ativo {
+  background: var(--amarelo);
+  color: #222222;
+  font-weight: 700;
+}
+
+.divisor-configuracao {
+  height: 1px;
+  margin: 4px 0;
+  background: rgba(0, 0, 0, 0.08);
+}

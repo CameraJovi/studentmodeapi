@@ -2,7 +2,12 @@
 
 import { useEffect, useRef } from "react";
 
-export default function Rodape({ modos, modoAtivo, aoSelecionarModo }) {
+export default function Rodape({
+  modos,
+  modoAtivo,
+  aoSelecionarModo,
+  aoCapturar,
+}) {
   const botaoAtivo = useRef(null);
 
   useEffect(() => {
@@ -17,7 +22,9 @@ export default function Rodape({ modos, modoAtivo, aoSelecionarModo }) {
     <footer className="rodape-camera">
       <section className="barra-inferior" aria-label="Controles de captura">
         <button
-          className="miniatura-preview"
+          className={`miniatura-preview ${
+            modoAtivo === "Estudante" ? "oculto" : ""
+          }`}
           type="button"
           aria-label="Abrir galeria"
         >
@@ -33,7 +40,12 @@ export default function Rodape({ modos, modoAtivo, aoSelecionarModo }) {
           </svg>
         </button>
 
-        <button className="btn-captura" type="button" aria-label="Tirar foto">
+        <button
+          className="btn-captura"
+          type="button"
+          aria-label="Tirar foto"
+          onClick={aoCapturar}
+        >
           <span
             className={`captura-interna ${
               modoAtivo === "Vídeo" ? "modo-video" : ""

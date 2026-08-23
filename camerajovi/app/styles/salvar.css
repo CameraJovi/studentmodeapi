@@ -1,0 +1,97 @@
+.salvar-instrucao {
+  color: #888888;
+  font-size: 13px;
+  text-align: center;
+}
+
+.lista-materias {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-materia {
+  padding: 16px;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #242424;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.card-materia.selecionado {
+  border-color: var(--amarelo);
+  background: rgba(255, 193, 7, 0.06);
+}
+
+.materia-icone {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(255, 193, 7, 0.12);
+  color: var(--amarelo);
+}
+
+.materia-icone svg {
+  width: 20px;
+  height: 20px;
+}
+
+.materia-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.materia-info strong {
+  color: var(--branco);
+  font-size: 14px;
+}
+
+.materia-info small {
+  color: #777777;
+  font-size: 11px;
+}
+
+.materia-check {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #444444;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-materia.selecionado .materia-check {
+  border-color: var(--amarelo);
+  background: var(--amarelo);
+}
+
+.card-materia.selecionado .materia-check span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1a1a1a;
+}
+
+.btn-salvar-materia {
+  width: 100%;
+  padding: 15px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--amarelo);
+  color: #1a1a1a;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
