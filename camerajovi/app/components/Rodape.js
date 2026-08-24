@@ -7,6 +7,7 @@ export default function Rodape({
   modoAtivo,
   aoSelecionarModo,
   aoCapturar,
+  aoGirarCamera,
 }) {
   const botaoAtivo = useRef(null);
 
@@ -57,6 +58,7 @@ export default function Rodape({
           className="btn-girar-camera"
           type="button"
           aria-label="Girar câmera"
+          onClick={aoGirarCamera}
         >
           <svg
             viewBox="0 0 24 24"
