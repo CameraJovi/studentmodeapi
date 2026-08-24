@@ -8,6 +8,7 @@ import "./styles/resumo.css";
 import "./styles/flashcard.css";
 import "./styles/equacao.css";
 import "./styles/salvar.css";
+import "./styles/smartpix.css";
 
 export const metadata = {
   title: "Câmera Jovi",
@@ -20,4 +21,4 @@ export default function RootLayout({ children }) {
       <body>{children}</body>
     </html>
   );
-}
+  }

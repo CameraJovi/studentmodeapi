@@ -23,6 +23,7 @@ export default function Home() {
   const [resolucao, setResolucao] = useState("HD");
   const [fps, setFps] = useState(24);
   const [acaoEstudante, setAcaoEstudante] = useState(null);
+  const [cameraFrontal, setCameraFrontal] = useState(false);
 
   function selecionarModo(modo) {
     setModoAtivo(modo);
@@ -68,6 +69,7 @@ export default function Home() {
           zoomAtivo={zoomAtivo}
           acoesEstudante={acoesDoEstudante}
           acaoEstudante={acaoEstudante}
+          cameraFrontal={cameraFrontal}
           aoSelecionarZoom={setZoomAtivo}
           aoSelecionarAcao={selecionarAcaoEstudante}
           aoVoltar={() => setAcaoEstudante(null)}
@@ -77,6 +79,7 @@ export default function Home() {
           modoAtivo={modoAtivo}
           aoSelecionarModo={selecionarModo}
           aoCapturar={capturar}
+          aoGirarCamera={() => setCameraFrontal(!cameraFrontal)}
         />
       </section>
     </main>
