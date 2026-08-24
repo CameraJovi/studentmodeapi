@@ -8,6 +8,7 @@ export default function Rodape({
   aoSelecionarModo,
   aoCapturar,
   aoGirarCamera,
+  capturando = false,
 }) {
   const botaoAtivo = useRef(null);
 
@@ -44,8 +45,9 @@ export default function Rodape({
         <button
           className="btn-captura"
           type="button"
-          aria-label="Tirar foto"
+          aria-label={capturando ? "Capturando foto" : "Tirar foto"}
           onClick={aoCapturar}
+          disabled={capturando}
         >
           <span
             className={`captura-interna ${

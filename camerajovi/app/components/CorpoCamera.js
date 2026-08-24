@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import CardEstudante from "./CardEstudante";
 import ModalSmartPix from "./ModalSmartPix";
 
@@ -74,21 +80,26 @@ function encontrarDadoSmartPix(texto) {
   return null;
 }
 
-export default function CorpoCamera({
-  modoAtivo,
-  zoomAtivo,
-  acoesEstudante,
-  acaoEstudante,
-  cameraFrontal,
-  aoSelecionarZoom,
-  aoSelecionarAcao,
-  aoVoltar,
-}) {
+const CorpoCamera = forwardRef(function CorpoCamera(
+  {
+    modoAtivo,
+    zoomAtivo,
+    acoesEstudante,
+    acaoEstudante,
+    cameraFrontal,
+    mensagemCaptura,
+    aoSelecionarZoom,
+    aoSelecionarAcao,
+    aoVoltar,
+  },
+  ref,
+) {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const resultadoSmartPixRef = useRef(null);
   const [resultadoSmartPix, setResultadoSmartPix] = useState(null);
   const [mensagemSmartPix, setMensagemSmartPix] = useState("");
+  const [estadoCamera, setEstadoCamera] = useState("Abrindo câmera...");
   const modoEstudante = modoAtivo === "Estudante";
   const modoPro = modoAtivo === "Pro";
   const ocrSmartPixAtivo = ["Retrato", "Foto", "Pro"].includes(modoAtivo);
@@ -120,13 +131,65 @@ export default function CorpoCamera({
     };
   }
 
+  useImperativeHandle(
+    ref,
+    () => ({
+      capturarImagem() {
+        const video = videoRef.current;
+
+        if (!video?.videoWidth || !video?.videoHeight) {
+          return Promise.reject(
+            new Error("A câmera ainda não está pronta para capturar."),
+          );
+        }
+
+        const larguraMaxima = 1280;
+        const escala = Math.min(1, larguraMaxima / video.videoWidth);
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(video.videoWidth * escala);
+        canvas.height = Math.round(video.videoHeight * escala);
+        const contexto = canvas.getContext("2d");
+
+        if (!contexto) {
+          return Promise.reject(new Error("Não foi possível criar a foto."));
+        }
+
+        if (cameraFrontal) {
+          contexto.translate(canvas.width, 0);
+          contexto.scale(-1, 1);
+        }
+
+        contexto.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        return new Promise((resolve, reject) => {
+          canvas.toBlob(
+            (blob) => {
+              if (blob) resolve(blob);
+              else reject(new Error("Não foi possível gerar a foto."));
+            },
+            "image/jpeg",
+            0.86,
+          );
+        });
+      },
+    }),
+    [cameraFrontal],
+  );
+
   useEffect(() => {
     let streamDaCamera;
     let componenteAtivo = true;
     const video = videoRef.current;
 
     async function iniciarCamera() {
+      await Promise.resolve();
+
+      if (!componenteAtivo) return;
+
       if (!navigator.mediaDevices?.getUserMedia || !video) {
+        if (componenteAtivo) {
+          setEstadoCamera("Este navegador não oferece acesso à câmera.");
+        }
         return;
       }
 
@@ -147,8 +210,12 @@ export default function CorpoCamera({
 
         video.srcObject = streamDaCamera;
         await video.play();
+        if (componenteAtivo) setEstadoCamera("");
       } catch {
         streamDaCamera?.getTracks().forEach((track) => track.stop());
+        if (componenteAtivo) {
+          setEstadoCamera("Autorize a câmera para continuar.");
+        }
         console.warn("A câmera não foi autorizada ou não está disponível.");
       }
     }
@@ -329,6 +396,12 @@ export default function CorpoCamera({
       />
       <canvas className="camera-canvas" ref={canvasRef} aria-hidden="true" />
 
+      {(mensagemCaptura || estadoCamera) && (
+        <p className="camera-estado" role="status" aria-live="polite">
+          {mensagemCaptura || estadoCamera}
+        </p>
+      )}
+
       {modoAtivo !== "Foto" && !modoPro && (
         <p className="modo-badge">● Modo {nomeDaAcao || modoAtivo}</p>
       )}
@@ -401,4 +474,6 @@ export default function CorpoCamera({
       )}
     </section>
   );
-}
+});
+
+export default CorpoCamera;

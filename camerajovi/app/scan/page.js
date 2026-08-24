@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import CardAcaoScan from "../components/CardAcaoScan";
+import PreviewCaptura from "../components/PreviewCaptura";
 
 const acoesDoScan = [
   { tipo: "resumo", titulo: "Resumo Inteligente", descricao: "Gerar resumo com IA", destino: "/resumo" },
@@ -32,7 +32,7 @@ export default function Scan() {
         {aviso && <p className="alerta-acao">{aviso}</p>}
 
         <div className="preview-documento">
-          <Image src="/img/math.png" alt="Documento capturado" width={600} height={400} priority />
+          <PreviewCaptura alternativa={false} />
         </div>
 
         <div className="lista-acoes-resultado">

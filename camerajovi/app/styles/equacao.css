@@ -129,3 +129,31 @@
   font-size: 13px;
   font-weight: 600;
 }
+
+.titulo-passo-math {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--amarelo);
+  font-size: 12px;
+}
+
+.resolucao-passo-texto {
+  display: block;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.resultado-math {
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: rgba(255, 193, 7, 0.1);
+  color: var(--amarelo);
+  font-size: 15px;
+}
