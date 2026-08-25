@@ -2,10 +2,15 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import CabecalhoAcao from "../components/CabecalhoAcao";
+import ItemHistorico from "../components/ItemHistorico";
 import { salvarAnalise } from "../services/joviApi";
 import { obterUltimaAnaliseSerializada } from "../services/captureSession";
+
+const CHAVE_MATERIAS = "jovi:materias";
+const CHAVE_HISTORICO = "jovi:historico";
+const CHAVE_MATERIA_SELECIONADA = "jovi:materia-selecionada";
 
 const materiasIniciais = [
   { nome: "Matemática", quantidade: 12 },
@@ -30,12 +35,25 @@ function analiseDoRegistro(registro) {
   }
 }
 
+function lerListaLocal(chave) {
+  try {
+    const valor = window.localStorage.getItem(chave);
+    const lista = valor ? JSON.parse(valor) : null;
+    return Array.isArray(lista) ? lista : null;
+  } catch {
+    return null;
+  }
+}
+
 export default function Salvar() {
   const router = useRouter();
   const [materias, setMaterias] = useState(materiasIniciais);
+  const [historico, setHistorico] = useState([]);
   const [selecionada, setSelecionada] = useState("Matemática");
   const [salvando, setSalvando] = useState(false);
   const [aviso, setAviso] = useState("");
+  const [itemHistoricoAberto, setItemHistoricoAberto] = useState(null);
+  const [armazenamentoCarregado, setArmazenamentoCarregado] = useState(false);
   const registroDaAnalise = useSyncExternalStore(
     assinarArmazenamento,
     obterUltimaAnaliseSerializada,
@@ -46,6 +64,52 @@ export default function Salvar() {
     [registroDaAnalise],
   );
   const carregandoAnalise = registroDaAnalise === null;
+
+  useEffect(() => {
+    let cancelado = false;
+
+    async function carregarDadosLocais() {
+      await Promise.resolve();
+
+      if (cancelado) return;
+
+      const materiasSalvas = lerListaLocal(CHAVE_MATERIAS);
+      const historicoSalvo = lerListaLocal(CHAVE_HISTORICO);
+      const materiasDisponiveis = materiasSalvas?.length
+        ? materiasSalvas
+        : materiasIniciais;
+      const materiaSalva = window.localStorage.getItem(
+        CHAVE_MATERIA_SELECIONADA,
+      );
+
+      setMaterias(materiasDisponiveis);
+      setHistorico(historicoSalvo || []);
+
+      if (materiasDisponiveis.some((materia) => materia.nome === materiaSalva)) {
+        setSelecionada(materiaSalva);
+      }
+
+      setArmazenamentoCarregado(true);
+    }
+
+    carregarDadosLocais();
+
+    return () => {
+      cancelado = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!armazenamentoCarregado) return;
+
+    try {
+      window.localStorage.setItem(CHAVE_MATERIAS, JSON.stringify(materias));
+      window.localStorage.setItem(CHAVE_HISTORICO, JSON.stringify(historico));
+      window.localStorage.setItem(CHAVE_MATERIA_SELECIONADA, selecionada);
+    } catch {
+      console.warn("Não foi possível salvar os dados no localStorage.");
+    }
+  }, [armazenamentoCarregado, historico, materias, selecionada]);
 
   function criarMateria() {
     const nome = window.prompt("Digite o nome da nova disciplina:");
@@ -90,6 +154,19 @@ export default function Salvar() {
             ? { ...materia, quantidade: materia.quantidade + 1 }
             : materia,
         ),
+      );
+      setHistorico((atual) =>
+        [
+          {
+            id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+            materia: resultado.materia,
+          tipo: analise.analysis_type,
+          assunto: analise.subject,
+          salvoEm: new Date().toISOString(),
+          analise,
+          },
+          ...atual,
+        ].slice(0, 8),
       );
       setAviso(`SALVO EM ${resultado.materia.toUpperCase()}!`);
     } catch (erro) {
@@ -174,6 +251,27 @@ export default function Salvar() {
                 </button>
               )}
             </>
+          )}
+
+          {historico.length > 0 && (
+            <section className="historico-local">
+              <h2>Salvos recentemente</h2>
+
+              <div className="lista-historico-local">
+                {historico.map((item) => (
+                  <ItemHistorico
+                    item={item}
+                    aberto={itemHistoricoAberto === item.id}
+                    aoAlternar={(id) =>
+                      setItemHistoricoAberto((atual) =>
+                        atual === id ? null : id,
+                      )
+                    }
+                    key={item.id}
+                  />
+                ))}
+              </div>
+            </section>
           )}
         </div>
       </section>
