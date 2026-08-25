@@ -14,13 +14,65 @@ A aplicação simula uma câmera de celular e permite capturar uma imagem direta
 ## Estrutura do projeto
 
 ```text
-Challenge-Jovi/
+studentmodeapi/
 |
-|-- cameraapresentation/       # Frontend
-|   |-- index.html
-|   |-- pages/                 # Telas da aplicação
-|   |-- css/                   # Estilos
-|   `-- js/                    # JavaScript e integração com API
+|-- camerajovi/                         # Frontend React e Next.js
+|   |-- app/
+|   |   |-- components/                 # Componentes funcionais
+|   |   |   |-- Cabecalho.js
+|   |   |   |-- CabecalhoAcao.js
+|   |   |   |-- CardAcaoScan.js
+|   |   |   |-- CardEstudante.js
+|   |   |   |-- CardFlashcard.js
+|   |   |   |-- CorpoCamera.js
+|   |   |   |-- EstadoAnalise.js
+|   |   |   |-- ItemHistorico.js
+|   |   |   |-- ModalSmartPix.js
+|   |   |   |-- PainelMais.js
+|   |   |   |-- PreviewCaptura.js
+|   |   |   `-- Rodape.js
+|   |   |-- hooks/
+|   |   |   `-- useJoviAnalysis.js      # Requisições das análises
+|   |   |-- services/
+|   |   |   |-- captureSession.js       # Captura e sessionStorage
+|   |   |   `-- joviApi.js              # Comunicação com a API
+|   |   |-- styles/                     # CSS separado por funcionalidade
+|   |   |   |-- acoes.css
+|   |   |   |-- cabecalho.css
+|   |   |   |-- camera.css
+|   |   |   |-- equacao.css
+|   |   |   |-- estudante.css
+|   |   |   |-- flashcard.css
+|   |   |   |-- mais.css
+|   |   |   |-- resumo.css
+|   |   |   |-- rodape.css
+|   |   |   |-- salvar.css
+|   |   |   `-- smartpix.css
+|   |   |-- equacao/page.js             # Resultado matemático
+|   |   |-- flashcard/page.js           # Flashcards gerados
+|   |   |-- resumo/page.js              # Resumo gerado
+|   |   |-- salvar/page.js              # Matérias e histórico local
+|   |   |-- scan/page.js                # Ações do scan
+|   |   |-- favicon.ico
+|   |   |-- globals.css
+|   |   |-- layout.js
+|   |   |-- page.js                     # Tela principal da câmera
+|   |   `-- page.module.css
+|   |-- public/
+|   |   |-- img/math.png
+|   |   |-- file.svg
+|   |   |-- globe.svg
+|   |   |-- next.svg
+|   |   |-- vercel.svg
+|   |   `-- window.svg
+|   |-- .env.example                    # Exemplo da URL da API
+|   |-- .gitignore
+|   |-- eslint.config.mjs
+|   |-- jsconfig.json
+|   |-- next.config.mjs
+|   |-- package-lock.json
+|   |-- package.json
+|   `-- README.md
 |
 `-- python/                    # Backend
     |-- api.py                 # API FastAPI
@@ -80,6 +132,8 @@ GET /api/health
 
 Antes de começar, certifique-se de possuir:
 
+* **Node.js 20.9 ou superior**
+* **npm**
 * **Python 3.10 ou superior**
 * Um navegador moderno, como Chrome, Edge ou Firefox
 * Uma câmera, caso queira utilizar a captura diretamente pelo navegador
@@ -97,16 +151,14 @@ O projeto foi desenvolvido e testado em Windows, mas o backend pode ser executad
 Clone o projeto utilizando Git:
 
 ```bash
-git clone URL_DO_REPOSITORIO
+git clone https://github.com/CameraJovi/studentmodeapi.git
 ```
 
 Entre na pasta do projeto:
 
 ```bash
-cd Challenge-Jovi
+cd studentmodeapi
 ```
-
-> Substitua `URL_DO_REPOSITORIO` pela URL deste repositório.
 
 ---
 
@@ -252,21 +304,31 @@ Abra **outro terminal** na pasta raiz do projeto.
 Entre na pasta do frontend:
 
 ```bash
-cd cameraapresentation
+cd camerajovi
 ```
 
-Inicie um servidor HTTP local:
-
-### Windows
-
-```powershell
-py -m http.server 5500
-```
-
-### Linux/macOS
+Instale as dependências do React:
 
 ```bash
-python3 -m http.server 5500
+npm install
+```
+
+O frontend utiliza `http://127.0.0.1:8000` como endereço padrão da API. Para configurar outro endereço, copie `.env.example` para `.env.local` e altere:
+
+```powershell
+Copy-Item .env.example .env.local
+```
+
+O conteúdo esperado é:
+
+```env
+NEXT_PUBLIC_JOVI_API_URL=http://127.0.0.1:8000
+```
+
+Inicie o Next.js:
+
+```bash
+npm run dev
 ```
 
 Depois abra:
@@ -344,7 +406,7 @@ O funcionamento geral do Camera Jovi segue o seguinte fluxo:
            ▼
 ┌─────────────────────┐
 │      Frontend       │
-│   HTML/CSS/JS       │
+│   React e Next.js   │
 └──────────┬──────────┘
            │
            │ HTTP Request
@@ -452,10 +514,10 @@ Verifique:
 
 * Se o navegador possui permissão para acessar a câmera;
 * Se outro programa está utilizando a câmera;
-* Se o frontend está sendo executado através de um servidor HTTP;
+* Se o frontend React foi iniciado com `npm run dev`;
 * Se você está acessando o frontend por `localhost` ou `127.0.0.1`.
 
-Não abra o arquivo `index.html` diretamente pelo explorador de arquivos.
+Não abra os arquivos do projeto diretamente pelo explorador de arquivos.
 
 Utilize:
 
@@ -531,7 +593,7 @@ Está rodando em:
 http://127.0.0.1:5500
 ```
 
-Também verifique se a URL utilizada pelo JavaScript para realizar as requisições corresponde à porta em que o backend está executando.
+Também verifique se `NEXT_PUBLIC_JOVI_API_URL` corresponde ao endereço em que o backend está executando.
 
 ---
 
@@ -554,13 +616,13 @@ uvicorn api:app --reload --port 8000
 ### Terminal 2 — Frontend
 
 ```bash
-cd cameraapresentation
+cd camerajovi
 ```
 
 Execute:
 
 ```bash
-python -m http.server 5500
+npm run dev
 ```
 
 O `--reload` do Uvicorn permite que alterações no código do backend sejam detectadas automaticamente durante o desenvolvimento.
@@ -571,12 +633,14 @@ O `--reload` do Uvicorn permite que alterações no código do backend sejam det
 
 ### Frontend
 
-* HTML5
-* CSS3
+* React 19
+* Next.js 16
 * JavaScript
-* Web APIs
-* `getUserMedia`
+* CSS3
+* Tesseract.js
+* MediaDevices API (`getUserMedia`)
 * Fetch API
+* `localStorage` e `sessionStorage`
 
 ### Backend
 
@@ -586,6 +650,12 @@ O `--reload` do Uvicorn permite que alterações no código do backend sejam det
 * Pillow
 * python-dotenv
 * Google Gemini API
+
+---
+
+# Uso de inteligência artificial
+
+Na aplicação, o Tesseract.js é utilizado no navegador para reconhecer possíveis e-mails e telefones no SmartPix, enquanto as imagens do Modo Estudante são enviadas para a API Python, que utiliza o Google Gemini para gerar resumos, flashcards e resoluções matemáticas. Durante o desenvolvimento, uma ferramenta de IA generativa foi utilizada como apoio na implementação e configuração da biblioteca Tesseract.js, principalmente nos ajustes de recorte, contraste, processamento da imagem e identificação dos padrões de e-mail e telefone, pois o OCR inicialmente apresentava dificuldade para reconhecer esses dados. A IA também auxiliou na melhoria do sistema de componentes React, na comunicação entre componentes por meio de props, na organização dos arquivos e na revisão do código. Todas as sugestões foram analisadas, adaptadas ao nível e à estrutura do projeto e testadas pela equipe antes de serem mantidas na aplicação.
 
 ---
 
