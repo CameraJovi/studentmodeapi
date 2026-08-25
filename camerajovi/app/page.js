@@ -7,7 +7,15 @@ import CorpoCamera from "./components/CorpoCamera";
 import Rodape from "./components/Rodape";
 import { guardarCaptura } from "./services/captureSession";
 
-const modosDaCamera = ["Retrato", "Vídeo", "Foto", "Estudante", "Pro"];
+const modosDaCamera = ["Retrato", "Vídeo", "Foto", "Estudante", "Pro", "Mais"];
+const modosExtras = [
+  { id: "noturno", nome: "Noturno", descricao: "Fotos com pouca luz" },
+  { id: "panorama", nome: "Panorama", descricao: "Cenários mais amplos" },
+  { id: "camera-lenta", nome: "Câmera lenta", descricao: "Movimentos em detalhes" },
+  { id: "time-lapse", nome: "Time-lapse", descricao: "Tempo acelerado" },
+  { id: "documento", nome: "Documento", descricao: "Textos mais nítidos" },
+  { id: "alta-resolucao", nome: "Alta resolução", descricao: "Mais detalhes na foto" },
+];
 const acoesDoEstudante = [
   { id: "scan", nome: "Scan" },
   { id: "flashcard", nome: "Flashcard" },
@@ -28,11 +36,26 @@ export default function Home() {
   const [cameraFrontal, setCameraFrontal] = useState(false);
   const [capturando, setCapturando] = useState(false);
   const [mensagemCaptura, setMensagemCaptura] = useState("");
+  const [modoExtraAtivo, setModoExtraAtivo] = useState(null);
+  const [painelMaisAberto, setPainelMaisAberto] = useState(false);
 
   function selecionarModo(modo) {
     setModoAtivo(modo);
     setAcaoEstudante(null);
     setMensagemCaptura("");
+
+    if (modo === "Mais") {
+      setPainelMaisAberto(true);
+      return;
+    }
+
+    setModoExtraAtivo(null);
+    setPainelMaisAberto(false);
+  }
+
+  function selecionarModoExtra(modo) {
+    setModoExtraAtivo(modo);
+    setPainelMaisAberto(false);
   }
 
   function selecionarAcaoEstudante(acao) {
@@ -100,8 +123,13 @@ export default function Home() {
           acaoEstudante={acaoEstudante}
           cameraFrontal={cameraFrontal}
           mensagemCaptura={mensagemCaptura}
+          modosExtras={modosExtras}
+          modoExtraAtivo={modoExtraAtivo}
+          painelMaisAberto={painelMaisAberto}
           aoSelecionarZoom={setZoomAtivo}
           aoSelecionarAcao={selecionarAcaoEstudante}
+          aoSelecionarModoExtra={selecionarModoExtra}
+          aoFecharPainelMais={() => selecionarModo("Foto")}
           aoVoltar={() => setAcaoEstudante(null)}
         />
         <Rodape
@@ -110,6 +138,8 @@ export default function Home() {
           aoSelecionarModo={selecionarModo}
           aoCapturar={capturar}
           capturando={capturando}
+          modoExtraAtivo={modoExtraAtivo}
+          painelMaisAberto={painelMaisAberto}
           aoGirarCamera={() => setCameraFrontal(!cameraFrontal)}
         />
       </section>
