@@ -58,3 +58,7 @@
 .resumo-destaque strong {
   color: var(--amarelo);
 }
+
+.texto-gerado {
+  white-space: pre-wrap;
+}

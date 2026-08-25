@@ -5,6 +5,14 @@ import { useEffect, useState } from "react";
 const opcoesDeResolucao = ["HD", "4K"];
 const opcoesDeFps = [24, 30, 60];
 
+function obterHoraAtual() {
+  const agora = new Date();
+  const horas = String(agora.getHours()).padStart(2, "0");
+  const minutos = String(agora.getMinutes()).padStart(2, "0");
+
+  return `${horas}:${minutos}`;
+}
+
 export default function Cabecalho({
   lanternaLigada,
   menuAberto,
@@ -15,19 +23,10 @@ export default function Cabecalho({
   aoSelecionarResolucao,
   aoSelecionarFps,
 }) {
-  const [hora, setHora] = useState("--:--");
+  const [hora, setHora] = useState(obterHoraAtual);
 
   useEffect(() => {
-    function atualizarHora() {
-      const agora = new Date();
-      const horas = String(agora.getHours()).padStart(2, "0");
-      const minutos = String(agora.getMinutes()).padStart(2, "0");
-
-      setHora(`${horas}:${minutos}`);
-    }
-
-    atualizarHora();
-    const intervalo = setInterval(atualizarHora, 1000);
+    const intervalo = setInterval(() => setHora(obterHoraAtual()), 1000);
 
     return () => clearInterval(intervalo);
   }, []);
