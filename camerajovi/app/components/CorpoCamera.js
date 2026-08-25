@@ -9,6 +9,7 @@ import {
 } from "react";
 import CardEstudante from "./CardEstudante";
 import ModalSmartPix from "./ModalSmartPix";
+import PainelMais from "./PainelMais";
 
 const opcoesDeZoom = ["0.5", "1x", "2", "5"];
 const tamanhosDoQuadro = {
@@ -88,8 +89,13 @@ const CorpoCamera = forwardRef(function CorpoCamera(
     acaoEstudante,
     cameraFrontal,
     mensagemCaptura,
+    modosExtras,
+    modoExtraAtivo,
+    painelMaisAberto,
     aoSelecionarZoom,
     aoSelecionarAcao,
+    aoSelecionarModoExtra,
+    aoFecharPainelMais,
     aoVoltar,
   },
   ref,
@@ -386,7 +392,7 @@ const CorpoCamera = forwardRef(function CorpoCamera(
   }
 
   return (
-    <section className="visor-camera">
+    <section className={`visor-camera ${painelMaisAberto ? "painel-aberto" : ""}`}>
       <video
         className={`camera-video ${cameraFrontal ? "camera-frontal" : ""}`}
         ref={videoRef}
@@ -402,8 +408,10 @@ const CorpoCamera = forwardRef(function CorpoCamera(
         </p>
       )}
 
-      {modoAtivo !== "Foto" && !modoPro && (
-        <p className="modo-badge">● Modo {nomeDaAcao || modoAtivo}</p>
+      {modoAtivo !== "Foto" && !modoPro && !painelMaisAberto && (
+        <p className="modo-badge">
+          ● Modo {nomeDaAcao || modoExtraAtivo || modoAtivo}
+        </p>
       )}
 
       <div className="sobreposicao-grade" aria-hidden="true">
@@ -470,6 +478,14 @@ const CorpoCamera = forwardRef(function CorpoCamera(
           aoCancelar={cancelarSmartPix}
           aoCopiar={copiarChaveSmartPix}
           aoAbrirBanco={simularAberturaDoBanco}
+        />
+      )}
+
+      {painelMaisAberto && (
+        <PainelMais
+          modos={modosExtras}
+          aoSelecionar={aoSelecionarModoExtra}
+          aoFechar={aoFecharPainelMais}
         />
       )}
     </section>

@@ -1,0 +1,127 @@
+.painel-mais {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  padding: 24px 20px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+  background: rgba(18, 18, 18, 0.55);
+  backdrop-filter: blur(18px);
+  animation: abrir-painel-mais 0.25s ease-out;
+}
+
+.cabecalho-painel-mais {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cabecalho-painel-mais div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cabecalho-painel-mais span {
+  color: var(--amarelo);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cabecalho-painel-mais h2 {
+  color: var(--branco);
+  font-size: 22px;
+}
+
+.cabecalho-painel-mais button {
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--branco);
+  cursor: pointer;
+}
+
+.cabecalho-painel-mais button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.grade-modos-extras {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.card-modo-extra {
+  min-height: 116px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 18px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(35, 35, 35, 0.72);
+  color: var(--branco);
+  text-align: left;
+  cursor: pointer;
+}
+
+.card-modo-extra:active {
+  border-color: var(--amarelo);
+  transform: scale(0.97);
+}
+
+.icone-modo-extra {
+  width: 38px;
+  height: 38px;
+  margin-bottom: 6px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 193, 7, 0.14);
+  color: var(--amarelo);
+}
+
+.icone-modo-extra svg {
+  width: 22px;
+  height: 22px;
+}
+
+.card-modo-extra strong {
+  font-size: 13px;
+}
+
+.card-modo-extra small {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.visor-camera.painel-aberto .sobreposicao-grade,
+.visor-camera.painel-aberto .quadro-deteccao,
+.visor-camera.painel-aberto .seletor-zoom {
+  opacity: 0;
+}
+
+@keyframes abrir-painel-mais {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
