@@ -15,7 +15,7 @@ from PIL import Image
 
 BASE_DIR = Path(__file__).resolve().parent
 SAVED_DIR = BASE_DIR / "salvos"
-MODEL_NAME = "gemini-2.5-flash"
+MODEL_NAME = "gemini-3.6-flash"
 
 load_dotenv(BASE_DIR / ".env")
 

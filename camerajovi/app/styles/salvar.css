@@ -133,3 +133,137 @@
   font-weight: 600;
   cursor: pointer;
 }
+
+.historico-local {
+  padding-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.historico-local h2 {
+  color: var(--branco);
+  font-size: 14px;
+}
+
+.lista-historico-local {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item-historico-local {
+  border: 1px solid #333333;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #242424;
+}
+
+.item-historico-local.aberto {
+  border-color: rgba(255, 193, 7, 0.55);
+}
+
+.btn-item-historico {
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.textos-item-historico {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.textos-item-historico strong,
+.textos-item-historico > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.textos-item-historico strong {
+  color: var(--branco);
+  font-size: 12px;
+}
+
+.textos-item-historico > span,
+.data-item-historico time {
+  color: #888888;
+  font-size: 10px;
+}
+
+.data-item-historico {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.data-item-historico svg {
+  width: 14px;
+  height: 14px;
+  color: var(--amarelo);
+  transition: transform 0.2s ease;
+}
+
+.item-historico-local.aberto .data-item-historico svg {
+  transform: rotate(180deg);
+}
+
+.detalhes-item-historico {
+  padding: 12px;
+  border-top: 1px solid #333333;
+  color: #bbbbbb;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.historico-flashcards,
+.historico-math {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.historico-flashcard,
+.historico-passo {
+  padding-bottom: 9px;
+  border-bottom: 1px solid #333333;
+}
+
+.historico-flashcard:last-child,
+.historico-passo:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.historico-flashcard strong,
+.historico-passo strong,
+.historico-math > p strong {
+  color: var(--amarelo);
+}
+
+.historico-flashcard p,
+.historico-passo p {
+  margin-top: 3px;
+}
+
+.historico-conteudo,
+.historico-sem-detalhes {
+  white-space: pre-line;
+}
+
+.historico-sem-detalhes {
+  color: #888888;
+  text-align: center;
+}
