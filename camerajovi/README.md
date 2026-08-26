@@ -1,6 +1,6 @@
 # Câmera Jovi — frontend React
 
-Frontend do Câmera Jovi desenvolvido com React e Next.js. A aplicação reproduz uma câmera de celular, captura imagens reais pelo navegador e se comunica com a API Python do projeto para gerar resumos, flashcards e resoluções matemáticas.
+Frontend do Câmera Jovi desenvolvido com React e Next.js. A aplicação reproduz uma câmera de celular, captura imagens reais pelo navegador, oferece o reconhecimento conceitual do SmartPix e se comunica com a API Python do projeto para gerar resumos, flashcards e resoluções matemáticas.
 
 ## Tecnologias utilizadas
 
@@ -99,6 +99,21 @@ O frontend chama diretamente:
 - `POST /api/salvar`;
 - `GET /api/health`.
 
+## Fluxo do SmartPix
+
+O SmartPix fica ativo nos modos **Retrato**, **Foto** e **Pro**. O Tesseract.js analisa periodicamente a região central da imagem diretamente no navegador, aplicando recorte, escala de cinza e contraste para tentar reconhecer um e-mail ou telefone.
+
+Para testar a funcionalidade:
+
+1. Autorize o acesso à câmera.
+2. Selecione Retrato, Foto ou Pro.
+3. Posicione um e-mail ou telefone legível dentro do quadro amarelo.
+4. Mantenha a câmera estável e aguarde o reconhecimento.
+5. Confira o valor apresentado no pop-up.
+6. Escolha entre cancelar, copiar a chave ou simular a abertura do banco.
+
+O SmartPix não envia o dado reconhecido para o Gemini e não realiza integração bancária. A funcionalidade não valida uma chave Pix, não identifica o proprietário, não solicita senha ou biometria e não efetua pagamentos. A opção **Abrir banco** apresenta apenas uma mensagem simulando a continuação segura em um aplicativo bancário.
+
 ## Armazenamento
 
 O `sessionStorage` mantém temporariamente a captura atual e os resultados usados durante a navegação. O `localStorage` guarda matérias, quantidades, última matéria selecionada e até oito registros recentes com seus detalhes. As imagens não são mantidas no `localStorage` para evitar exceder o limite do navegador.
@@ -113,7 +128,7 @@ Na aplicação, o Tesseract.js é utilizado no navegador para reconhecer possív
 
 ## Deploy
 
-**Vercel:** deploy ainda não publicado. Substitua esta informação pelo link final antes da entrega.
+**Vercel:** https://camerajovi-kappa.vercel.app
 
 No ambiente publicado, configure `NEXT_PUBLIC_JOVI_API_URL` com o endereço público da API Python.
 
