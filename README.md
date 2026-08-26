@@ -7,6 +7,7 @@ A aplicação simula uma câmera de celular e permite capturar uma imagem direta
 * Resumos inteligentes;
 * Flashcards de estudo;
 * Resolução de expressões matemáticas;
+* Reconhecimento de possíveis e-mails e telefones com o SmartPix;
 * Arquivos `.txt` com os resultados das análises.
 
 ---
@@ -53,9 +54,10 @@ studentmodeapi/
 |   |   |-- resumo/page.js              # Resumo gerado
 |   |   |-- salvar/page.js              # Matérias e histórico local
 |   |   |-- scan/page.js                # Ações do scan
-|   |   |-- favicon.ico
+|   |   |-- icon.svg                     # Ícone da aplicação
 |   |   |-- globals.css
 |   |   |-- layout.js
+|   |   |-- opengraph-image.js           # Imagem de compartilhamento
 |   |   |-- page.js                     # Tela principal da câmera
 |   |   `-- page.module.css
 |   |-- public/
@@ -109,6 +111,14 @@ A partir do conteúdo da imagem, o sistema pode gerar flashcards para auxiliar n
 ### ➗ Matemática
 
 O sistema identifica expressões matemáticas presentes na imagem e retorna uma resolução detalhada.
+
+### ✨ SmartPix
+
+O SmartPix é uma funcionalidade conceitual que utiliza o Tesseract.js para analisar periodicamente a área central da câmera nos modos **Retrato**, **Foto** e **Pro**. O processamento acontece no próprio navegador e procura padrões que possam representar um endereço de e-mail ou um telefone.
+
+Quando um dado é reconhecido, a aplicação apresenta a mensagem **Possível chave Pix encontrada** e permite revisar o valor, cancelar a ação, copiar a chave ou simular a abertura de um aplicativo bancário. Para testar, mantenha um e-mail ou telefone legível dentro do quadro amarelo, com boa iluminação e a câmera estável.
+
+O recurso funciona somente como demonstração e atalho inteligente. Ele não valida se o dado é uma chave Pix, não consulta informações bancárias, não solicita senha ou biometria e não realiza transferências. A confirmação do destinatário e qualquer pagamento permaneceriam sob responsabilidade do aplicativo bancário.
 
 ### 💾 Salvamento
 
@@ -656,6 +666,14 @@ O `--reload` do Uvicorn permite que alterações no código do backend sejam det
 # Uso de inteligência artificial
 
 Na aplicação, o Tesseract.js é utilizado no navegador para reconhecer possíveis e-mails e telefones no SmartPix, enquanto as imagens do Modo Estudante são enviadas para a API Python, que utiliza o Google Gemini para gerar resumos, flashcards e resoluções matemáticas. Durante o desenvolvimento, uma ferramenta de IA generativa foi utilizada como apoio na implementação e configuração da biblioteca Tesseract.js, principalmente nos ajustes de recorte, contraste, processamento da imagem e identificação dos padrões de e-mail e telefone, pois o OCR inicialmente apresentava dificuldade para reconhecer esses dados. A IA também auxiliou na melhoria do sistema de componentes React, na comunicação entre componentes por meio de props, na organização dos arquivos e na revisão do código. Todas as sugestões foram analisadas, adaptadas ao nível e à estrutura do projeto e testadas pela equipe antes de serem mantidas na aplicação.
+
+---
+
+# Deploy
+
+A versão publicada do frontend está disponível na Vercel:
+
+**https://camerajovi-kappa.vercel.app**
 
 ---
 
