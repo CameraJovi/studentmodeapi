@@ -21,6 +21,7 @@ Frontend do Câmera Jovi desenvolvido com React e Next.js. A aplicação reprodu
 - SmartPix conceitual com OCR de e-mails e telefones;
 - integração com os endpoints de resumo, flashcards e matemática;
 - organização por matérias e histórico persistente com `localStorage`;
+- página completa do Caderno Inteligente com filtro por matéria;
 - detalhes dos conteúdos salvos em cards expansíveis.
 
 ## Pré-requisitos
@@ -116,7 +117,7 @@ O SmartPix não envia o dado reconhecido para o Gemini e não realiza integraç�
 
 ## Armazenamento
 
-O `sessionStorage` mantém temporariamente a captura atual e os resultados usados durante a navegação. O `localStorage` guarda matérias, quantidades, última matéria selecionada e até oito registros recentes com seus detalhes. As imagens não são mantidas no `localStorage` para evitar exceder o limite do navegador.
+O `sessionStorage` mantém temporariamente a captura atual e os resultados usados durante a navegação. O `localStorage` guarda as matérias, a última matéria selecionada e o histórico completo com seus detalhes. A tela de salvamento exibe os oito registros mais recentes, enquanto a página `/caderno` permite consultar todos os registros separados por matéria. Ao salvar no Caderno Inteligente, a foto correspondente é reduzida para no máximo 960 pixels de largura, comprimida em JPEG e armazenada como `Blob` no IndexedDB. O histórico mantém apenas a referência da imagem, evitando ocupar o limite reduzido do `localStorage`. Registros antigos, criados antes dessa funcionalidade, continuam disponíveis sem foto.
 
 ## Usuários e senhas
 

@@ -6,40 +6,28 @@ import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import CabecalhoAcao from "../components/CabecalhoAcao";
 import ItemHistorico from "../components/ItemHistorico";
 import { salvarAnalise } from "../services/joviApi";
-import { obterUltimaAnaliseSerializada } from "../services/captureSession";
-
-const CHAVE_MATERIAS = "jovi:materias";
-const CHAVE_HISTORICO = "jovi:historico";
-const CHAVE_MATERIA_SELECIONADA = "jovi:materia-selecionada";
-
-const materiasIniciais = [
-  { nome: "Matemática", quantidade: 12 },
-  { nome: "Física", quantidade: 7 },
-  { nome: "Português", quantidade: 3 },
-  { nome: "Programação", quantidade: 20 },
-  { nome: "Inglês", quantidade: 5 },
-];
+import {
+  capturaParaArquivo,
+  obterCaptura,
+  obterUltimaAnaliseSerializada,
+} from "../services/captureSession";
+import { salvarImagemDoCaderno } from "../services/cadernoImagens";
+import {
+  carregarCadernoLocal,
+  MATERIAS_INICIAIS,
+  salvarCadernoLocal,
+} from "../services/cadernoHistorico";
 
 function assinarArmazenamento(aoMudar) {
   window.addEventListener("storage", aoMudar);
   return () => window.removeEventListener("storage", aoMudar);
 }
 
-function analiseDoRegistro(registro) {
+function dadosDoRegistro(registro) {
   if (!registro) return null;
 
   try {
-    return JSON.parse(registro)?.analise || null;
-  } catch {
-    return null;
-  }
-}
-
-function lerListaLocal(chave) {
-  try {
-    const valor = window.localStorage.getItem(chave);
-    const lista = valor ? JSON.parse(valor) : null;
-    return Array.isArray(lista) ? lista : null;
+    return JSON.parse(registro) || null;
   } catch {
     return null;
   }
@@ -47,9 +35,9 @@ function lerListaLocal(chave) {
 
 export default function Salvar() {
   const router = useRouter();
-  const [materias, setMaterias] = useState(materiasIniciais);
+  const [materias, setMaterias] = useState(MATERIAS_INICIAIS);
   const [historico, setHistorico] = useState([]);
-  const [selecionada, setSelecionada] = useState("Matemática");
+  const [selecionada, setSelecionada] = useState(MATERIAS_INICIAIS[0].nome);
   const [salvando, setSalvando] = useState(false);
   const [aviso, setAviso] = useState("");
   const [itemHistoricoAberto, setItemHistoricoAberto] = useState(null);
@@ -59,10 +47,11 @@ export default function Salvar() {
     obterUltimaAnaliseSerializada,
     () => null,
   );
-  const analise = useMemo(
-    () => analiseDoRegistro(registroDaAnalise),
+  const dadosDaAnalise = useMemo(
+    () => dadosDoRegistro(registroDaAnalise),
     [registroDaAnalise],
   );
+  const analise = dadosDaAnalise?.analise || null;
   const carregandoAnalise = registroDaAnalise === null;
 
   useEffect(() => {
@@ -73,21 +62,11 @@ export default function Salvar() {
 
       if (cancelado) return;
 
-      const materiasSalvas = lerListaLocal(CHAVE_MATERIAS);
-      const historicoSalvo = lerListaLocal(CHAVE_HISTORICO);
-      const materiasDisponiveis = materiasSalvas?.length
-        ? materiasSalvas
-        : materiasIniciais;
-      const materiaSalva = window.localStorage.getItem(
-        CHAVE_MATERIA_SELECIONADA,
-      );
+      const dadosDoCaderno = carregarCadernoLocal();
 
-      setMaterias(materiasDisponiveis);
-      setHistorico(historicoSalvo || []);
-
-      if (materiasDisponiveis.some((materia) => materia.nome === materiaSalva)) {
-        setSelecionada(materiaSalva);
-      }
+      setMaterias(dadosDoCaderno.materias);
+      setHistorico(dadosDoCaderno.historico);
+      setSelecionada(dadosDoCaderno.materiaSelecionada);
 
       setArmazenamentoCarregado(true);
     }
@@ -102,11 +81,13 @@ export default function Salvar() {
   useEffect(() => {
     if (!armazenamentoCarregado) return;
 
-    try {
-      window.localStorage.setItem(CHAVE_MATERIAS, JSON.stringify(materias));
-      window.localStorage.setItem(CHAVE_HISTORICO, JSON.stringify(historico));
-      window.localStorage.setItem(CHAVE_MATERIA_SELECIONADA, selecionada);
-    } catch {
+    const salvou = salvarCadernoLocal({
+      materias,
+      historico,
+      materiaSelecionada: selecionada,
+    });
+
+    if (!salvou) {
       console.warn("Não foi possível salvar os dados no localStorage.");
     }
   }, [armazenamentoCarregado, historico, materias, selecionada]);
@@ -147,6 +128,34 @@ export default function Salvar() {
       setSalvando(true);
       setAviso("SALVANDO...");
       const resultado = await salvarAnalise(selecionada, analise);
+      const idDoRegistro = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      const captura = obterCaptura();
+      let imagemId = null;
+      let fotoNaoSalva = true;
+
+      if (captura?.id === dadosDaAnalise?.capturaId) {
+        try {
+          const arquivoDaCaptura = await capturaParaArquivo(captura);
+          imagemId = `foto-${idDoRegistro}`;
+          await salvarImagemDoCaderno(imagemId, arquivoDaCaptura);
+          fotoNaoSalva = false;
+        } catch (erroDaFoto) {
+          imagemId = null;
+          fotoNaoSalva = true;
+          console.warn("A análise foi salva sem a foto original.", erroDaFoto);
+        }
+      }
+
+      const novoRegistro = {
+        id: idDoRegistro,
+        materia: resultado.materia,
+        tipo: analise.analysis_type,
+        assunto: analise.subject,
+        salvoEm: new Date().toISOString(),
+        analise,
+        imagemId,
+      };
+      const historicoAtualizado = [novoRegistro, ...historico];
 
       setMaterias((atuais) =>
         atuais.map((materia) =>
@@ -155,20 +164,13 @@ export default function Salvar() {
             : materia,
         ),
       );
-      setHistorico((atual) =>
-        [
-          {
-            id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-            materia: resultado.materia,
-          tipo: analise.analysis_type,
-          assunto: analise.subject,
-          salvoEm: new Date().toISOString(),
-          analise,
-          },
-          ...atual,
-        ].slice(0, 8),
+      setHistorico(historicoAtualizado);
+
+      setAviso(
+        fotoNaoSalva
+          ? `ANÁLISE SALVA EM ${resultado.materia.toUpperCase()}, MAS A FOTO NÃO PÔDE SER GUARDADA.`
+          : `FOTO E ANÁLISE SALVAS EM ${resultado.materia.toUpperCase()}!`,
       );
-      setAviso(`SALVO EM ${resultado.materia.toUpperCase()}!`);
     } catch (erro) {
       setAviso(erro.message || "NÃO FOI POSSÍVEL SALVAR.");
     } finally {
@@ -196,6 +198,7 @@ export default function Salvar() {
                 <div className="analise-a-salvar">
                   <span>{analise.analysis_type}</span>
                   <strong>{analise.subject}</strong>
+                  <small>A foto original será incluída neste registro.</small>
                 </div>
               )}
 
@@ -245,7 +248,7 @@ export default function Salvar() {
                 {salvando ? "Salvando..." : "Salvar aqui"}
               </button>
 
-              {aviso.startsWith("SALVO EM") && (
+              {(aviso.startsWith("FOTO E ANÁLISE") || aviso.startsWith("ANÁLISE SALVA")) && (
                 <button className="btn-voltar-pos-salvar" type="button" onClick={() => router.push("/")}>
                   Voltar à câmera
                 </button>
@@ -255,10 +258,27 @@ export default function Salvar() {
 
           {historico.length > 0 && (
             <section className="historico-local">
-              <h2>Salvos recentemente</h2>
+              <div className="cabecalho-historico-local">
+                <h2>Salvos recentemente</h2>
+                <span>{historico.length} salvos</span>
+              </div>
+
+              <button
+                className="btn-abrir-caderno"
+                type="button"
+                onClick={() => router.push("/caderno")}
+              >
+                <span>
+                  <strong>Ver caderno completo</strong>
+                  <small>Todas as matérias e conteúdos salvos</small>
+                </span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
 
               <div className="lista-historico-local">
-                {historico.map((item) => (
+                {historico.slice(0, 8).map((item) => (
                   <ItemHistorico
                     item={item}
                     aberto={itemHistoricoAberto === item.id}

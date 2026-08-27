@@ -1,19 +1,40 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import CardAcaoScan from "../components/CardAcaoScan";
 import PreviewCaptura from "../components/PreviewCaptura";
+import {
+  guardarAnalise,
+  obterCaptura,
+} from "../services/captureSession";
 
 const acoesDoScan = [
   { tipo: "resumo", titulo: "Resumo Inteligente", descricao: "Gerar resumo com IA", destino: "/resumo" },
   { tipo: "flashcard", titulo: "Criar Flashcards", descricao: "Cards de estudo automático", destino: "/flashcard" },
   { tipo: "math", titulo: "Resolver Equação", descricao: "Passo a passo da solução", destino: "/equacao" },
-  { tipo: "salvar", titulo: "Salvar em Matéria", descricao: "Organizar por disciplina", destino: "/salvar" },
 ];
 
 export default function Scan() {
+  const router = useRouter();
   const [aviso, setAviso] = useState("");
+
+  function salvarNoCaderno() {
+    const captura = obterCaptura();
+
+    if (!captura) {
+      setAviso("NENHUMA FOTO FOI CAPTURADA.");
+      return;
+    }
+
+    guardarAnalise("scan", captura.id, {
+      analysis_type: "scan",
+      subject: "Documento digitalizado",
+      content: "Foto digitalizada pela Câmera Jovi.",
+    });
+    router.push("/salvar");
+  }
 
   function compartilhar() {
     setAviso("COMPARTILHAMENTO EM BREVE");
@@ -26,7 +47,13 @@ export default function Scan() {
         <header className="header-resultado">
           <Link className="btn-texto-resultado" href="/">Cancelar</Link>
           <h1 className="titulo-resultado">Scan</h1>
-          <Link className="btn-texto-resultado" href="/salvar">Salvar</Link>
+          <button
+            className="btn-texto-resultado btn-salvar-scan"
+            type="button"
+            onClick={salvarNoCaderno}
+          >
+            Salvar no Caderno
+          </button>
         </header>
 
         {aviso && <p className="alerta-acao">{aviso}</p>}

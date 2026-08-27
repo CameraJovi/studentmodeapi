@@ -8,7 +8,8 @@ A aplicação simula uma câmera de celular e permite capturar uma imagem direta
 * Flashcards de estudo;
 * Resolução de expressões matemáticas;
 * Reconhecimento de possíveis e-mails e telefones com o SmartPix;
-* Arquivos `.txt` com os resultados das análises.
+* Arquivos `.txt` com os resultados das análises;
+* Caderno Inteligente local com a foto original comprimida e o conteúdo gerado.
 
 ---
 
@@ -52,7 +53,8 @@ studentmodeapi/
 |   |   |-- equacao/page.js             # Resultado matemático
 |   |   |-- flashcard/page.js           # Flashcards gerados
 |   |   |-- resumo/page.js              # Resumo gerado
-|   |   |-- salvar/page.js              # Matérias e histórico local
+|   |   |-- salvar/page.js              # Salvamento e registros recentes
+|   |   |-- caderno/page.js             # Histórico completo por matéria
 |   |   |-- scan/page.js                # Ações do scan
 |   |   |-- icon.svg                     # Ícone da aplicação
 |   |   |-- globals.css
@@ -127,6 +129,8 @@ Os resultados podem ser salvos em arquivos `.txt`, organizados por matéria dent
 ```text
 python/salvos/
 ```
+
+No frontend, o Caderno Inteligente mantém o histórico completo e apresenta os oito registros mais recentes na tela de salvamento. Uma página própria permite consultar todos os conteúdos filtrados por matéria. Cada registro relaciona a matéria, o assunto, o tipo da análise, a data, o conteúdo gerado e a foto comprimida. Os dados descritivos ficam no `localStorage`, enquanto as imagens são armazenadas como `Blob` no IndexedDB do navegador.
 
 ### ❤️ Health Check
 

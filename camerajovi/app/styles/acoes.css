@@ -73,6 +73,13 @@
   font-weight: 600;
 }
 
+.btn-salvar-scan {
+  justify-content: flex-end;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 700;
+}
+
 .tela-resultado-scan {
   padding: 0 24px 20px;
 }
