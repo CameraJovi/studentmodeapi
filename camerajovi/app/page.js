@@ -11,16 +11,24 @@ const modosDaCamera = ["Retrato", "Vídeo", "Foto", "Estudante", "Pro", "Mais"];
 const modosExtras = [
   { id: "noturno", nome: "Noturno", descricao: "Fotos com pouca luz" },
   { id: "panorama", nome: "Panorama", descricao: "Cenários mais amplos" },
-  { id: "camera-lenta", nome: "Câmera lenta", descricao: "Movimentos em detalhes" },
+  {
+    id: "camera-lenta",
+    nome: "Câmera lenta",
+    descricao: "Movimentos em detalhes",
+  },
   { id: "time-lapse", nome: "Time-lapse", descricao: "Tempo acelerado" },
   { id: "documento", nome: "Documento", descricao: "Textos mais nítidos" },
-  { id: "alta-resolucao", nome: "Alta resolução", descricao: "Mais detalhes na foto" },
+  {
+    id: "alta-resolucao",
+    nome: "Alta resolução",
+    descricao: "Mais detalhes na foto",
+  },
 ];
 const acoesDoEstudante = [
   { id: "scan", nome: "Scan" },
   { id: "flashcard", nome: "Flashcard" },
   { id: "math", nome: "Math" },
-  { id: "salvar", nome: "Salvar" },
+  { id: "caderno", nome: "Caderno" },
 ];
 
 export default function Home() {
@@ -59,8 +67,8 @@ export default function Home() {
   }
 
   function selecionarAcaoEstudante(acao) {
-    if (acao === "salvar") {
-      router.push("/salvar");
+    if (acao === "caderno") {
+      router.push("/caderno");
       return;
     }
 

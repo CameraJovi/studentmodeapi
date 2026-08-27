@@ -9,7 +9,6 @@ const acoesDoScan = [
   { tipo: "resumo", titulo: "Resumo Inteligente", descricao: "Gerar resumo com IA", destino: "/resumo" },
   { tipo: "flashcard", titulo: "Criar Flashcards", descricao: "Cards de estudo automático", destino: "/flashcard" },
   { tipo: "math", titulo: "Resolver Equação", descricao: "Passo a passo da solução", destino: "/equacao" },
-  { tipo: "salvar", titulo: "Salvar em Matéria", descricao: "Organizar por disciplina", destino: "/salvar" },
 ];
 
 export default function Scan() {
@@ -26,7 +25,7 @@ export default function Scan() {
         <header className="header-resultado">
           <Link className="btn-texto-resultado" href="/">Cancelar</Link>
           <h1 className="titulo-resultado">Scan</h1>
-          <Link className="btn-texto-resultado" href="/salvar">Salvar</Link>
+          <Link className="btn-texto-resultado" href="/caderno">Caderno</Link>
         </header>
 
         {aviso && <p className="alerta-acao">{aviso}</p>}

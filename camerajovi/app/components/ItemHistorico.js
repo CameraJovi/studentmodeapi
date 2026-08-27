@@ -1,8 +1,83 @@
+"use client";
+
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { obterImagemDoCaderno } from "../services/cadernoImagens";
+
 function formatarData(data) {
   return new Date(data).toLocaleString("pt-BR", {
     dateStyle: "short",
     timeStyle: "short",
   });
+}
+
+function FotoDoHistorico({ imagemId, assunto }) {
+  const [imagem, setImagem] = useState({
+    id: null,
+    url: "",
+    indisponivel: false,
+  });
+
+  useEffect(() => {
+    if (!imagemId) return undefined;
+
+    let componenteAtivo = true;
+    let urlTemporaria = "";
+
+    async function carregarImagem() {
+      try {
+        const registro = await obterImagemDoCaderno(imagemId);
+
+        if (!componenteAtivo) return;
+
+        if (!registro?.blob) {
+          setImagem({ id: imagemId, url: "", indisponivel: true });
+          return;
+        }
+
+        urlTemporaria = URL.createObjectURL(registro.blob);
+        setImagem({ id: imagemId, url: urlTemporaria, indisponivel: false });
+      } catch {
+        if (componenteAtivo) {
+          setImagem({ id: imagemId, url: "", indisponivel: true });
+        }
+      }
+    }
+
+    carregarImagem();
+
+    return () => {
+      componenteAtivo = false;
+      if (urlTemporaria) URL.revokeObjectURL(urlTemporaria);
+    };
+  }, [imagemId]);
+
+  if (!imagemId) return null;
+
+  if (imagem.id !== imagemId) {
+    return <p className="historico-foto-status">Carregando foto...</p>;
+  }
+
+  if (imagem.indisponivel) {
+    return (
+      <p className="historico-foto-status">
+        A foto deste registro não está mais disponível.
+      </p>
+    );
+  }
+
+  return (
+    <figure className="historico-foto">
+      <Image
+        src={imagem.url}
+        alt={`Foto original de ${assunto || "conteúdo estudado"}`}
+        width={960}
+        height={720}
+        unoptimized
+      />
+      <figcaption>Foto original</figcaption>
+    </figure>
+  );
 }
 
 function DetalhesAnalise({ analise }) {
@@ -64,7 +139,9 @@ export default function ItemHistorico({ item, aberto, aoAlternar }) {
       >
         <span className="textos-item-historico">
           <strong>{item.assunto || "Conteúdo sem título"}</strong>
-          <span>{item.materia} · {item.tipo}</span>
+          <span>
+            {item.materia} · {item.tipo}{item.imagemId ? " · Foto" : ""}
+          </span>
         </span>
 
         <span className="data-item-historico">
@@ -77,6 +154,7 @@ export default function ItemHistorico({ item, aberto, aoAlternar }) {
 
       {aberto && (
         <div className="detalhes-item-historico">
+          <FotoDoHistorico imagemId={item.imagemId} assunto={item.assunto} />
           <DetalhesAnalise analise={item.analise} />
         </div>
       )}
