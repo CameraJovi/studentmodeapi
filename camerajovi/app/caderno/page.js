@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import CabecalhoAcao from "../components/CabecalhoAcao";
 import ItemHistorico from "../components/ItemHistorico";
+import { removerImagensDoCaderno } from "../services/cadernoImagens";
 import {
   carregarCadernoLocal,
+  salvarCadernoLocal,
   salvarMateriaSelecionada,
 } from "../services/cadernoHistorico";
 
@@ -15,6 +17,7 @@ export default function Caderno() {
   const [selecionada, setSelecionada] = useState("");
   const [itemAberto, setItemAberto] = useState(null);
   const [carregando, setCarregando] = useState(true);
+  const [aviso, setAviso] = useState("");
   const arrasteMaterias = useRef({
     ativo: false,
     moveu: false,
@@ -64,7 +67,79 @@ export default function Caderno() {
   function selecionarMateria(materia) {
     setSelecionada(materia);
     setItemAberto(null);
+    setAviso("");
     salvarMateriaSelecionada(materia);
+  }
+
+  function persistirHistorico(novoHistorico) {
+    const materiasAtualizadas = materias.map((nome) => ({
+      nome,
+      quantidade: novoHistorico.filter((item) => item.materia === nome).length,
+    }));
+
+    return salvarCadernoLocal({
+      materias: materiasAtualizadas,
+      historico: novoHistorico,
+      materiaSelecionada: selecionada,
+    });
+  }
+
+  function renomearRegistro(item) {
+    const novoTitulo = window.prompt(
+      "Digite o novo título do registro:",
+      item.assunto || "",
+    );
+
+    if (novoTitulo === null) return;
+
+    const tituloLimpo = novoTitulo.trim();
+    if (!tituloLimpo) {
+      setAviso("O título do registro não pode ficar vazio.");
+      return;
+    }
+
+    const historicoAtualizado = historico.map((registro) =>
+      registro.id === item.id
+        ? { ...registro, assunto: tituloLimpo }
+        : registro,
+    );
+
+    if (!persistirHistorico(historicoAtualizado)) {
+      setAviso("Não foi possível renomear o registro.");
+      return;
+    }
+
+    setHistorico(historicoAtualizado);
+    setAviso("Registro renomeado.");
+  }
+
+  async function excluirRegistro(item) {
+    const confirmou = window.confirm(
+      `Excluir “${item.assunto || "Conteúdo sem título"}” do Caderno?`,
+    );
+
+    if (!confirmou) return;
+
+    const historicoAtualizado = historico.filter(
+      (registro) => registro.id !== item.id,
+    );
+
+    if (!persistirHistorico(historicoAtualizado)) {
+      setAviso("Não foi possível excluir o registro.");
+      return;
+    }
+
+    setHistorico(historicoAtualizado);
+    setItemAberto(null);
+    setAviso("Registro excluído do Caderno.");
+
+    if (item.imagemId) {
+      try {
+        await removerImagensDoCaderno([item.imagemId]);
+      } catch (erro) {
+        console.warn("O registro foi excluído, mas a foto não pôde ser limpa.", erro);
+      }
+    }
   }
 
   function iniciarArrasteMaterias(event) {
@@ -126,8 +201,8 @@ export default function Caderno() {
       <section className="tela-celular tela-acao">
         <CabecalhoAcao
           titulo="Caderno Inteligente"
-          voltarPara="/salvar"
-          textoVoltar="Salvar"
+          voltarPara="/?modo=estudante"
+          textoVoltar="Câmera"
         />
 
         <div className="corpo-acao caderno-completo">
@@ -144,6 +219,12 @@ export default function Caderno() {
             <p className="caderno-estado">Carregando caderno...</p>
           ) : (
             <>
+              {aviso && (
+                <p className="aviso-caderno" role="status">
+                  {aviso}
+                </p>
+              )}
+
               <nav
                 className="filtros-materias"
                 aria-label="Matérias do caderno"
@@ -186,6 +267,8 @@ export default function Caderno() {
                         aoAlternar={(id) =>
                           setItemAberto((atual) => atual === id ? null : id)
                         }
+                        aoRenomear={renomearRegistro}
+                        aoExcluir={excluirRegistro}
                         key={item.id}
                       />
                     ))}

@@ -128,7 +128,13 @@ function DetalhesAnalise({ analise }) {
   return <p className="historico-conteudo">{analise.content}</p>;
 }
 
-export default function ItemHistorico({ item, aberto, aoAlternar }) {
+export default function ItemHistorico({
+  item,
+  aberto,
+  aoAlternar,
+  aoRenomear,
+  aoExcluir,
+}) {
   return (
     <article className={`item-historico-local ${aberto ? "aberto" : ""}`}>
       <button
@@ -156,6 +162,25 @@ export default function ItemHistorico({ item, aberto, aoAlternar }) {
         <div className="detalhes-item-historico">
           <FotoDoHistorico imagemId={item.imagemId} assunto={item.assunto} />
           <DetalhesAnalise analise={item.analise} />
+
+          {(aoRenomear || aoExcluir) && (
+            <div className="acoes-item-historico">
+              {aoRenomear && (
+                <button type="button" onClick={() => aoRenomear(item)}>
+                  Renomear
+                </button>
+              )}
+              {aoExcluir && (
+                <button
+                  className="excluir"
+                  type="button"
+                  onClick={() => aoExcluir(item)}
+                >
+                  Excluir
+                </button>
+              )}
+            </div>
+          )}
         </div>
       )}
     </article>

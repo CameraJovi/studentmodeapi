@@ -369,8 +369,43 @@
   text-align: center;
 }
 
+.acoes-item-historico {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid #333333;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.acoes-item-historico button {
+  padding: 7px 11px;
+  border: 1px solid #4a4a4a;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--branco);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.acoes-item-historico button.excluir {
+  border-color: rgba(255, 92, 92, 0.55);
+  color: #ff7777;
+}
+
 .caderno-completo {
   gap: 18px;
+}
+
+.aviso-caderno {
+  padding: 9px 11px;
+  border: 1px solid rgba(255, 193, 7, 0.4);
+  border-radius: 9px;
+  background: rgba(255, 193, 7, 0.08);
+  color: var(--amarelo);
+  font-size: 10px;
+  line-height: 1.4;
 }
 
 .caderno-apresentacao {

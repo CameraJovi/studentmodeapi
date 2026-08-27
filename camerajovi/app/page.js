@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Cabecalho from "./components/Cabecalho";
 import CorpoCamera from "./components/CorpoCamera";
 import Rodape from "./components/Rodape";
@@ -31,10 +31,13 @@ const acoesDoEstudante = [
   { id: "caderno", nome: "Caderno" },
 ];
 
-export default function Home() {
+function CameraJovi() {
   const router = useRouter();
+  const parametros = useSearchParams();
   const cameraRef = useRef(null);
-  const [modoAtivo, setModoAtivo] = useState("Foto");
+  const [modoAtivo, setModoAtivo] = useState(
+    parametros.get("modo") === "estudante" ? "Estudante" : "Foto",
+  );
   const [zoomAtivo, setZoomAtivo] = useState("1x");
   const [lanternaLigada, setLanternaLigada] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false);
@@ -152,5 +155,13 @@ export default function Home() {
         />
       </section>
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={null}>
+      <CameraJovi />
+    </Suspense>
   );
 }
