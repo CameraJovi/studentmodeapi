@@ -23,15 +23,8 @@
 
     <header class="cabecalho-site">
       <div class="container navegacao">
-        <a class="marca" href="#inicio" aria-label="Câmera Jovi - início">
-          <span class="marca-icone" aria-hidden="true">
-            <svg viewBox="0 0 48 48" fill="none">
-              <path d="M9 16h8l3-4h8l3 4h8a5 5 0 0 1 5 5v16a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V21a5 5 0 0 1 5-5Z" />
-              <circle cx="24" cy="29" r="8" />
-              <circle cx="36" cy="22" r="1.5" class="ponto-camera" />
-            </svg>
-          </span>
-          <span>Câmera <strong>Jovi</strong></span>
+        <a class="marca marca-deepy" href="#inicio" aria-label="Deepy - início">
+          <img src="assets/logo-deepy.svg" alt="" />
         </a>
 
         <button
@@ -105,15 +98,6 @@
         </div>
       </section>
 
-      <section class="faixa-resultados" aria-label="Resumo da solução">
-        <div class="container resultados-grid">
-          <article><strong>1</strong><span>captura para começar</span></article>
-          <article><strong>3+</strong><span>formatos de estudo</span></article>
-          <article><strong>100%</strong><span>experiência web</span></article>
-          <article><strong>24/7</strong><span>rotina organizada</span></article>
-        </div>
-      </section>
-
       <section id="solucao" class="secao secao-solucao" aria-labelledby="titulo-solucao">
         <div class="container">
           <header class="cabecalho-secao">
@@ -135,7 +119,7 @@
 
             <div class="solucao-explicacao">
               <article>
-                <span>O desafio</span>
+                <span>Problemática</span>
                 <p>
                   Fotos de lousa, anotações e exercícios se acumulam no celular sem contexto. Na
                   hora de revisar, o estudante perde tempo procurando o conteúdo e tentando lembrar
@@ -143,7 +127,7 @@
                 </p>
               </article>
               <article>
-                <span>Nossa resposta</span>
+                <span>Proposta de valor</span>
                 <p>
                   A Câmera Jovi transforma o momento da captura em parte do estudo. O registro passa
                   pela aplicação, é processado e volta organizado para continuar sendo útil depois
@@ -258,61 +242,109 @@
               <p class="etiqueta"><span></span> Galeria</p>
               <h2 id="titulo-galeria">Conheça as funcionalidades da Câmera Jovi.</h2>
             </div>
-            <p>Adicione aqui as capturas de tela que apresentam cada parte da aplicação.</p>
+            <p>Veja como a captura se transforma em conteúdo organizado para estudar e revisar.</p>
           </header>
 
           <div class="galeria-grid">
             <figure class="galeria-item">
-              <!-- Substitua o placeholder por assets/funcionalidade-captura.png -->
-              <div class="galeria-placeholder" aria-label="Espaço para imagem da captura de conteúdo"><span>+</span></div>
+              <div class="galeria-imagem">
+                <img
+                  src="assets/imagem_1.png"
+                  alt="Modo Estudante aberto na câmera da aplicação"
+                  loading="lazy"
+                />
+              </div>
               <figcaption>
                 <span>01</span>
-                <strong>Captura de conteúdo</strong>
+                <div>
+                  <strong>Captura de conteúdo</strong>
+                  <p>Registra cadernos, lousas, textos e exercícios usando a câmera do navegador.</p>
+                </div>
               </figcaption>
             </figure>
 
             <figure class="galeria-item">
-              <!-- Substitua o placeholder por assets/funcionalidade-resumo.png -->
-              <div class="galeria-placeholder" aria-label="Espaço para imagem do resumo inteligente"><span>+</span></div>
+              <div class="galeria-imagem">
+                <img
+                  src="assets/imagem_2.png"
+                  alt="Resumo inteligente gerado a partir de uma atividade de matemática"
+                  loading="lazy"
+                />
+              </div>
               <figcaption>
                 <span>02</span>
-                <strong>Resumo inteligente</strong>
+                <div>
+                  <strong>Resumo inteligente</strong>
+                  <p>Interpreta a imagem capturada e apresenta o conteúdo em um resumo organizado.</p>
+                </div>
               </figcaption>
             </figure>
 
             <figure class="galeria-item">
-              <!-- Substitua o placeholder por assets/funcionalidade-flashcards.png -->
-              <div class="galeria-placeholder" aria-label="Espaço para imagem dos flashcards"><span>+</span></div>
+              <div class="galeria-imagem">
+                <img
+                  src="assets/imagem_3.png"
+                  alt="Conjunto de flashcards criado pela aplicação"
+                  loading="lazy"
+                />
+              </div>
               <figcaption>
                 <span>03</span>
-                <strong>Flashcards</strong>
+                <div>
+                  <strong>Flashcards</strong>
+                  <p>Transforma o conteúdo da imagem em perguntas e respostas para ajudar na revisão.</p>
+                </div>
               </figcaption>
             </figure>
 
             <figure class="galeria-item">
-              <!-- Substitua o placeholder por assets/funcionalidade-matematica.png -->
-              <div class="galeria-placeholder" aria-label="Espaço para imagem da resolução matemática"><span>+</span></div>
+              <div class="galeria-imagem">
+                <img
+                  src="assets/imagem_4.png"
+                  alt="Resolução passo a passo de uma equação matemática"
+                  loading="lazy"
+                />
+              </div>
               <figcaption>
                 <span>04</span>
-                <strong>Resolução matemática</strong>
+                <div>
+                  <strong>Resolução matemática</strong>
+                  <p>Identifica expressões matemáticas e devolve uma resolução detalhada.</p>
+                </div>
               </figcaption>
             </figure>
 
             <figure class="galeria-item">
-              <!-- Substitua o placeholder por assets/funcionalidade-smartpix.png -->
-              <div class="galeria-placeholder" aria-label="Espaço para imagem do SmartPix"><span>+</span></div>
+              <div class="galeria-imagem">
+                <img
+                  src="assets/imagem_5.png"
+                  alt="Conteúdos organizados no Caderno Inteligente"
+                  loading="lazy"
+                />
+              </div>
               <figcaption>
                 <span>05</span>
-                <strong>SmartPix</strong>
+                <div>
+                  <strong>Caderno inteligente</strong>
+                  <p>Reúne fotos e conteúdos salvos, organizados por matéria para consultar depois.</p>
+                </div>
               </figcaption>
             </figure>
 
             <figure class="galeria-item">
-              <!-- Substitua o placeholder por assets/funcionalidade-caderno.png -->
-              <div class="galeria-placeholder" aria-label="Espaço para imagem do caderno inteligente"><span>+</span></div>
+              <div class="galeria-imagem">
+                <img
+                  src="assets/imagem_6.png"
+                  alt="SmartPix reconhecendo um possível e-mail pela câmera"
+                  loading="lazy"
+                />
+              </div>
               <figcaption>
                 <span>06</span>
-                <strong>Caderno inteligente</strong>
+                <div>
+                  <strong>SmartPix</strong>
+                  <p>Procura possíveis e-mails e telefones na câmera e oferece ações de demonstração.</p>
+                </div>
               </figcaption>
             </figure>
           </div>
@@ -324,30 +356,48 @@
           <header class="cabecalho-secao">
             <div>
               <p class="etiqueta"><span></span> Nossa equipe</p>
-              <h2 id="titulo-equipe">Código, design e propósito trabalhando juntos.</h2>
+              <h2 id="titulo-equipe" class="equipe-slogan">
+                Explore mais <strong>fundo</strong>,<br />
+                descubra mais <strong>valor</strong>.
+              </h2>
             </div>
             <p>Uma equipe de Engenharia de Software construindo uma solução para estudantes como nós.</p>
           </header>
 
           <div class="equipe-grid">
             <article class="membro-card">
-              <span class="avatar">VB</span><h3>Vitor de Castro Buzato</h3>
+              <div class="foto-integrante" aria-label="Espaço para foto de Vitor de Castro Buzato">
+                <span class="avatar">VB</span><small>Adicionar foto</small>
+              </div>
+              <h3>Vitor de Castro Buzato</h3>
               <p>Desenvolvimento Full Stack</p><small>RM 569720</small>
             </article>
             <article class="membro-card">
-              <span class="avatar">JP</span><h3>Joao Pedro Ferreira Pinheiro</h3>
+              <div class="foto-integrante" aria-label="Espaço para foto de Joao Pedro Ferreira Pinheiro">
+                <span class="avatar">JP</span><small>Adicionar foto</small>
+              </div>
+              <h3>Joao Pedro Ferreira Pinheiro</h3>
               <p>Desenvolvimento Full Stack</p><small>RM 570569</small>
             </article>
             <article class="membro-card">
-              <span class="avatar">JM</span><h3>Joao Pedro Gomes de Matos</h3>
+              <div class="foto-integrante" aria-label="Espaço para foto de Joao Pedro Gomes de Matos">
+                <span class="avatar">JM</span><small>Adicionar foto</small>
+              </div>
+              <h3>Joao Pedro Gomes de Matos</h3>
               <p>Desenvolvimento Full Stack</p><small>RM 569934</small>
             </article>
             <article class="membro-card">
-              <span class="avatar">DP</span><h3>Davi Pereira</h3>
+              <div class="foto-integrante" aria-label="Espaço para foto de Davi Pereira">
+                <span class="avatar">DP</span><small>Adicionar foto</small>
+              </div>
+              <h3>Davi Pereira</h3>
               <p>Desenvolvimento Full Stack</p><small>RM 572337</small>
             </article>
             <article class="membro-card">
-              <span class="avatar">GP</span><h3>Gabriel Palmieri</h3>
+              <div class="foto-integrante" aria-label="Espaço para foto de Gabriel Palmieri">
+                <span class="avatar">GP</span><small>Adicionar foto</small>
+              </div>
+              <h3>Gabriel Palmieri</h3>
               <p>Desenvolvimento Full Stack</p><small>RM 570508</small>
             </article>
           </div>
@@ -395,9 +445,8 @@
 
     <footer class="rodape-site">
       <div class="container rodape-grid">
-        <a class="marca" href="#inicio">
-          <span class="marca-icone" aria-hidden="true">✦</span>
-          <span>Câmera <strong>Jovi</strong></span>
+        <a class="marca marca-deepy" href="#inicio" aria-label="Deepy - início">
+          <img src="assets/logo-deepy.svg" alt="" />
         </a>
         <p>Challenge FIAP · Engenharia de Software · <span id="ano-atual"></span></p>
         <a href="#inicio">Voltar ao topo ↑</a>

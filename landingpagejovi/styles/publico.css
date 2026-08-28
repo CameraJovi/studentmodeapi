@@ -1,0 +1,69 @@
+.publico-cabecalho {
+  margin-bottom: clamp(50px, 8vw, 90px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.88fr);
+  align-items: end;
+  gap: clamp(40px, 8vw, 100px);
+}
+
+.publico-introducao > p {
+  max-width: 470px;
+  color: var(--cinza-500);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.publico-introducao strong {
+  max-width: 470px;
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 193, 7, 0.4);
+  display: block;
+  color: var(--cinza-300);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.publico-lista {
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.publico-lista article {
+  min-height: 142px;
+  padding: 28px 0;
+  border-bottom: var(--borda);
+  display: grid;
+  grid-template-columns: 90px minmax(260px, 0.85fr) minmax(300px, 1.15fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 72px);
+}
+
+.publico-lista span {
+  color: var(--amarelo);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.publico-lista h3 {
+  font-size: clamp(20px, 2.4vw, 28px);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+.publico-lista p {
+  max-width: 520px;
+  color: var(--cinza-500);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.publico-fecho {
+  max-width: 620px;
+  margin: 24px 0 0 auto;
+  color: var(--cinza-500);
+  font-size: 11px;
+  line-height: 1.6;
+  text-align: right;
+}
+

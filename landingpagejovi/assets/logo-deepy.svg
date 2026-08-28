@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="titulo descricao">
+  <title id="titulo">Logo da Deepy</title>
+  <desc id="descricao">Monograma da letra D combinado com a letra P</desc>
+  <g fill="none" stroke="#FFC107" stroke-width="14" stroke-linejoin="miter">
+    <path d="M27 37h74c32 0 54 22 54 53s-22 53-54 53H76v-30h25c14 0 23-9 23-23s-9-23-23-23H27V37Z" />
+    <path d="M48 82h28v61H48V82Z" />
+  </g>
+</svg>

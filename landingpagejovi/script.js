@@ -3,6 +3,7 @@ const linksDoMenu = document.querySelectorAll(".menu-principal a");
 const formulario = document.querySelector("#formulario-contato");
 const retornoFormulario = document.querySelector("#retorno-formulario");
 const anoAtual = document.querySelector("#ano-atual");
+const galeria = document.querySelector(".galeria-grid");
 
 function fecharMenu() {
   document.body.classList.remove("menu-aberto");
@@ -38,3 +39,23 @@ formulario.addEventListener("submit", (evento) => {
 });
 
 anoAtual.textContent = new Date().getFullYear();
+
+if (galeria) {
+  galeria.classList.add("galeria-animavel");
+
+  if ("IntersectionObserver" in window) {
+    const observadorGaleria = new IntersectionObserver(
+      ([entrada]) => {
+        if (entrada.isIntersecting) {
+          galeria.classList.add("galeria-visivel");
+          observadorGaleria.disconnect();
+        }
+      },
+      { threshold: 0.12 },
+    );
+
+    observadorGaleria.observe(galeria);
+  } else {
+    galeria.classList.add("galeria-visivel");
+  }
+}

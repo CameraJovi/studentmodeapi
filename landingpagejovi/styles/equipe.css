@@ -1,0 +1,86 @@
+.secao-equipe {
+  background:
+    radial-gradient(circle at 50% 100%, rgba(255, 193, 7, 0.08), transparent 30%),
+    var(--preto);
+}
+
+.equipe-slogan strong {
+  color: var(--amarelo);
+  font: inherit;
+  text-shadow: 0 0 22px rgba(255, 193, 7, 0.32);
+}
+
+.equipe-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.membro-card {
+  min-height: 420px;
+  padding: 24px;
+  border: var(--borda);
+  border-radius: var(--raio-medio);
+  display: flex;
+  flex-direction: column;
+  background: var(--cinza-900);
+}
+
+.foto-integrante {
+  width: 100%;
+  min-height: 210px;
+  border: 1px dashed rgba(255, 193, 7, 0.42);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.025)),
+    var(--preto-suave);
+  object-fit: cover;
+}
+
+.membro-card .foto-integrante small {
+  margin-top: 0;
+  color: var(--cinza-500);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: var(--amarelo);
+  color: var(--preto);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.membro-card h3 {
+  margin-top: 22px;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.membro-card p {
+  margin-top: 8px;
+  color: var(--amarelo);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.membro-card small {
+  margin-top: 5px;
+  color: var(--cinza-500);
+  font-size: 10px;
+}
+

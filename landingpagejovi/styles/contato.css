@@ -1,0 +1,105 @@
+.contato-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+  gap: clamp(50px, 8vw, 110px);
+}
+
+.contato-conteudo > p {
+  max-width: 540px;
+  margin-top: 24px;
+}
+
+.links-contato {
+  margin-top: 34px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.links-contato a {
+  padding: 18px;
+  border: var(--borda);
+  border-radius: 13px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.links-contato a:hover {
+  border-color: rgba(255, 193, 7, 0.5);
+}
+
+.links-contato span {
+  color: var(--cinza-500);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.links-contato strong {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.formulario-contato {
+  padding: clamp(26px, 4vw, 42px);
+  border: var(--borda);
+  border-radius: var(--raio-grande);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  background: var(--cinza-900);
+}
+
+.campo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.campo-mensagem,
+.formulario-contato .botao,
+.retorno-formulario {
+  grid-column: 1 / -1;
+}
+
+.campo-formulario label {
+  color: var(--cinza-300);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.campo-formulario input,
+.campo-formulario textarea {
+  width: 100%;
+  border: 1px solid #383838;
+  border-radius: 11px;
+  outline: 0;
+  background: #151515;
+  color: var(--branco);
+}
+
+.campo-formulario input {
+  height: 50px;
+  padding: 0 15px;
+}
+
+.campo-formulario textarea {
+  min-height: 132px;
+  padding: 14px 15px;
+  resize: vertical;
+}
+
+.campo-formulario input:focus,
+.campo-formulario textarea:focus {
+  border-color: var(--amarelo);
+  box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.09);
+}
+
+.retorno-formulario {
+  min-height: 20px;
+  color: var(--amarelo);
+  font-size: 12px;
+  text-align: center;
+}
+

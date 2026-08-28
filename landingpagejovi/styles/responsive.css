@@ -1,0 +1,326 @@
+:focus-visible {
+  outline: 3px solid rgba(255, 193, 7, 0.55);
+  outline-offset: 4px;
+}
+
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(310px, 0.72fr);
+    gap: 36px;
+  }
+
+  .equipe-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .menu-principal ul {
+    gap: 18px;
+  }
+
+  .hero {
+    padding-top: 86px;
+  }
+
+  .hero-grid,
+  .publico-cabecalho,
+  .contato-grid,
+  .jornada-cabecalho {
+    grid-template-columns: 1fr;
+  }
+
+  .jornada-cabecalho {
+    align-items: start;
+    gap: 22px;
+  }
+
+  .jornada-passos li {
+    grid-template-columns: 60px minmax(220px, 0.8fr) minmax(0, 1.2fr);
+    gap: 26px;
+  }
+
+  .publico-cabecalho {
+    align-items: start;
+    gap: 26px;
+  }
+
+  .publico-lista article {
+    grid-template-columns: 60px minmax(220px, 0.8fr) minmax(0, 1.2fr);
+    gap: 26px;
+  }
+
+  .hero-conteudo {
+    text-align: center;
+  }
+
+  .hero-conteudo .etiqueta,
+  .hero-acoes,
+  .hero-beneficios {
+    justify-content: center;
+  }
+
+  .hero-texto {
+    margin-inline: auto;
+  }
+
+  .hero-visual {
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  .cabecalho-secao {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .solucao-manifesto {
+    grid-template-columns: 56px minmax(0, 1fr);
+  }
+
+  .galeria-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+  }
+
+  .galeria-item:nth-child(n) {
+    grid-column: auto;
+  }
+
+  .contato-conteudo {
+    text-align: center;
+  }
+
+  .contato-conteudo .etiqueta {
+    justify-content: center;
+  }
+
+  .contato-conteudo > p {
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .container {
+    width: min(calc(100% - 28px), var(--largura));
+  }
+
+  .navegacao {
+    min-height: 68px;
+  }
+
+  .botao-menu {
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 10px;
+    display: grid;
+    place-content: center;
+    justify-self: end;
+    gap: 5px;
+    background: var(--cinza-800);
+    cursor: pointer;
+  }
+
+  .botao-menu span {
+    width: 21px;
+    height: 2px;
+    background: var(--branco);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .menu-aberto .botao-menu span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-aberto .botao-menu span:nth-child(2) { opacity: 0; }
+  .menu-aberto .botao-menu span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .menu-principal {
+    position: fixed;
+    top: 68px;
+    right: 0;
+    left: 0;
+    height: calc(100vh - 68px);
+    height: calc(100dvh - 68px);
+    padding: 28px 20px;
+    visibility: hidden;
+    background: rgba(13, 13, 13, 0.98);
+    opacity: 0;
+    transform: translateY(-12px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  }
+
+  .menu-aberto .menu-principal {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .menu-principal ul {
+    grid-auto-flow: row;
+    gap: 0;
+  }
+
+  .menu-principal li {
+    border-bottom: var(--borda);
+  }
+
+  .menu-principal a {
+    padding: 20px 4px;
+    display: block;
+    font-size: 17px;
+  }
+
+  .menu-principal a::after {
+    display: none;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 72px;
+  }
+
+  .solucao-manifesto {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .solucao-manifesto > span {
+    padding-top: 0;
+  }
+
+  .solucao-explicacao {
+    grid-template-columns: 1fr;
+  }
+
+  .solucao-explicacao article:first-child {
+    padding-right: 0;
+    border-right: 0;
+    border-bottom: var(--borda);
+  }
+
+  .solucao-explicacao article:last-child {
+    padding-left: 0;
+  }
+
+  .jornada-cabecalho {
+    padding: 50px 0;
+    text-align: left;
+  }
+
+  .jornada-passos li {
+    padding: 28px 0;
+    grid-template-columns: 46px 1fr;
+    align-items: start;
+    gap: 16px;
+  }
+
+  .jornada-passos li > p {
+    grid-column: 2;
+  }
+
+  .jornada-final {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    gap: 12px;
+  }
+
+  .publico-lista article {
+    grid-template-columns: 46px 1fr;
+    align-items: start;
+    gap: 16px;
+  }
+
+  .publico-lista p {
+    grid-column: 2;
+  }
+
+  .publico-fecho {
+    margin-left: 62px;
+    text-align: left;
+  }
+
+  .hero h1 {
+    font-size: clamp(42px, 12vw, 64px);
+  }
+
+  .galeria-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .equipe-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rodape-grid {
+    padding: 28px 0;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .rodape-grid > a:last-child {
+    justify-self: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero {
+    padding-bottom: 56px;
+  }
+
+  .hero-acoes,
+  .hero-acoes .botao {
+    width: 100%;
+  }
+
+  .hero-beneficios {
+    align-items: center;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .hero-visual {
+    max-width: 390px;
+  }
+
+  .equipe-grid,
+  .links-contato,
+  .formulario-contato {
+    grid-template-columns: 1fr;
+  }
+
+  .solucao-manifesto h3 {
+    font-size: clamp(36px, 11vw, 52px);
+  }
+
+  .campo-mensagem,
+  .formulario-contato .botao,
+  .retorno-formulario {
+    grid-column: auto;
+  }
+
+  .galeria-imagem {
+    min-height: 280px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .galeria-grid.galeria-animavel .galeria-item {
+    opacity: 1;
+  }
+
+  .galeria-grid.galeria-visivel .galeria-item {
+    animation: none;
+  }
+}
+
