@@ -1,0 +1,84 @@
+.cabecalho-site {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: var(--borda);
+  background: rgba(13, 13, 13, 0.86);
+  backdrop-filter: blur(18px);
+}
+
+.navegacao {
+  min-height: 76px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 32px;
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.marca-deepy {
+  width: 52px;
+}
+
+.marca-deepy img {
+  width: 52px;
+  height: 52px;
+  filter: drop-shadow(0 0 9px rgba(255, 193, 7, 0.32));
+}
+
+.menu-principal {
+  justify-self: end;
+}
+
+.menu-principal ul {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.menu-principal a {
+  position: relative;
+  padding: 26px 0;
+  color: var(--cinza-300);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.menu-principal a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 18px;
+  left: 0;
+  height: 2px;
+  background: var(--amarelo);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.2s ease;
+}
+
+.menu-principal a:hover,
+.menu-principal a:focus-visible {
+  color: var(--branco);
+}
+
+.menu-principal a:hover::after,
+.menu-principal a:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.botao-menu {
+  display: none;
+}
+

@@ -1,0 +1,26 @@
+.rodape-site {
+  border-top: var(--borda);
+  background: #090909;
+}
+
+.rodape-grid {
+  min-height: 110px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  gap: 20px;
+}
+
+.rodape-grid p {
+  color: var(--cinza-500);
+  font-size: 11px;
+  text-align: center;
+}
+
+.rodape-grid > a:last-child {
+  justify-self: end;
+  color: var(--cinza-300);
+  font-size: 11px;
+  font-weight: 700;
+}
+

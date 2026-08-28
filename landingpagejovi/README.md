@@ -22,6 +22,10 @@ Landing Page desenvolvida para apresentar a solução Câmera Jovi na Sprint 3 d
 
 O layout utiliza CSS Grid e possui adaptações para desktop, tablet e celular. Os principais pontos de quebra estão em `1024px`, `860px`, `720px` e `520px`.
 
+## Organização do CSS
+
+O arquivo `styles.css` centraliza os imports. As regras foram separadas por responsabilidade dentro da pasta `styles`, facilitando a localização e a manutenção do código.
+
 ## Como executar
 
 Não é necessário instalar dependências. Abra o arquivo `index.html` em um navegador ou utilize a extensão Live Server do Visual Studio Code.
@@ -30,22 +34,33 @@ O formulário de contato possui validação e retorno visual para demonstrar a i
 
 ## Imagens das funcionalidades
 
-Na seção **Galeria**, cada funcionalidade possui um espaço reservado para sua captura de tela. Para adicionar uma imagem, substitua o elemento `div` com a classe `galeria-placeholder` por uma tag `img` dentro do mesmo `figure`:
+A seção **Galeria** apresenta seis capturas reais da aplicação:
 
-```html
-<img src="assets/funcionalidade-captura.png" alt="Tela de captura da Câmera Jovi" />
-```
-
-Os nomes sugeridos para os arquivos aparecem dentro de cada espaço reservado no site.
+- `imagem_1.png`: captura de conteúdo no Modo Estudante;
+- `imagem_2.png`: resumo inteligente;
+- `imagem_3.png`: flashcards;
+- `imagem_4.png`: resolução matemática;
+- `imagem_5.png`: caderno inteligente;
+- `imagem_6.png`: reconhecimento conceitual do SmartPix.
 
 ## Estrutura
 
 ```text
 landingpagejovi/
-├── assets/
-│   └── math.png
+├── assets/                   # Imagens e logo da página
+├── styles/
+│   ├── base.css
+│   ├── header.css
+│   ├── hero.css
+│   ├── solucao.css
+│   ├── publico.css
+│   ├── galeria.css
+│   ├── equipe.css
+│   ├── contato.css
+│   ├── footer.css
+│   └── responsive.css
 ├── index.html
-├── styles.css
+├── styles.css                # Arquivo central de imports
 ├── script.js
 ├── README.md
 └── INTEGRANTES.TXT
