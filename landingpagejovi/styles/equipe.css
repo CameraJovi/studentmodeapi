@@ -1,86 +1,171 @@
 .secao-equipe {
   background:
-    radial-gradient(circle at 50% 100%, rgba(255, 193, 7, 0.08), transparent 30%),
+    radial-gradient(circle at 50% 100%,
+      rgba(255, 193, 7, 0.08),
+      transparent 35%),
     var(--preto);
 }
 
 .equipe-slogan strong {
   color: var(--amarelo);
   font: inherit;
-  text-shadow: 0 0 22px rgba(255, 193, 7, 0.32);
 }
+
+/* =========================
+   GRID
+   ========================= */
 
 .equipe-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 12px;
+  gap: 16px;
+  margin-top: 52px;
 }
+
+/* =========================
+   CARD
+   ========================= */
 
 .membro-card {
-  min-height: 420px;
-  padding: 24px;
-  border: var(--borda);
-  border-radius: var(--raio-medio);
+  position: relative;
+
+  padding: 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 20px;
+
   display: flex;
   flex-direction: column;
-  background: var(--cinza-900);
+
+  background:
+    linear-gradient(180deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.012)),
+    #171717;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
+
+/* brilho amarelo no fundo */
+
+
+
+/* hover */
+
+.membro-card:hover {
+  transform: translateY(-5px);
+
+  border-color: rgba(255, 193, 7, 0.35);
+
+  box-shadow:
+    0 15px 30px rgba(0, 0, 0, 0.30);
+}
+
+
+/* =========================
+   FOTO
+   ========================= */
 
 .foto-integrante {
+  position: relative;
+
   width: 100%;
-  min-height: 210px;
-  border: 1px dashed rgba(255, 193, 7, 0.42);
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 12px;
+  height: 220px;
+
+  border: 1px solid rgba(255, 193, 7, 0.28);
+  border-radius: 15px;
+
   overflow: hidden;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.025)),
-    var(--preto-suave);
+
+  background: #101010;
+}
+
+/* imagem */
+
+.foto-integrante img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
   object-fit: cover;
+  object-position: center;
+
+  transition:
+    transform 0.5s ease,
+    filter 0.5s ease;
 }
 
-.membro-card .foto-integrante small {
-  margin-top: 0;
-  color: var(--cinza-500);
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.membro-card:hover .foto-integrante img {
+  transform: scale(1.05);
+
+  filter: brightness(1.05);
 }
 
-.avatar {
-  width: 54px;
-  height: 54px;
-  border-radius: 16px;
-  display: grid;
-  place-items: center;
-  background: var(--amarelo);
-  color: var(--preto);
-  font-size: 14px;
-  font-weight: 800;
+/* degradê sobre a foto */
+
+.foto-integrante::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(180deg,
+      transparent 55%,
+      rgba(0, 0, 0, 0.35));
+
+  pointer-events: none;
 }
+
+/* =========================
+   INFORMAÇÕES
+   ========================= */
 
 .membro-card h3 {
   margin-top: 22px;
-  font-size: 15px;
-  line-height: 1.35;
+
+  color: var(--branco);
+
+  font-size: 17px;
+  line-height: 1.3;
+  font-weight: 700;
 }
 
 .membro-card p {
-  margin-top: 8px;
+  margin-top: 9px;
+
   color: var(--amarelo);
+
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 800;
+
+  letter-spacing: 0.05em;
+
   text-transform: uppercase;
 }
 
 .membro-card small {
-  margin-top: 5px;
+  margin-top: 6px;
+
   color: var(--cinza-500);
+
   font-size: 10px;
+  font-weight: 500;
 }
 
+/* =========================
+   RM
+   ========================= */
+
+.membro-card small::before {
+  content: "RM ";
+
+  color: var(--cinza-500);
+}

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
   --amarelo: #ffc107;
   --amarelo-claro: #ffd85a;
@@ -20,6 +22,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: "Montserrat";
 }
 
 html {
@@ -36,7 +39,6 @@ body {
     radial-gradient(circle at 85% 8%, rgba(255, 193, 7, 0.1), transparent 26%),
     var(--preto);
   color: var(--branco);
-  font-family: "Inter", Arial, sans-serif;
   line-height: 1.5;
 }
 
@@ -82,4 +84,3 @@ svg {
 .atalho-conteudo:focus {
   transform: translateY(0);
 }
-
